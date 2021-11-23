@@ -1,5 +1,10 @@
 # ADC-frontend
 
+### Conventions
+
+-   Create files with .jsx extension.
+-   Let's name our files using Pascal case i.e SignUp.jsx, TheNameOfFIle.jsx.
+
 ### Directory structure
 
 -   assets/
