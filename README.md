@@ -1,5 +1,16 @@
 # ADC-frontend
 
+### Directory structure
+
+-   assets/
+    -   Will store images and static stuff that is not code.
+-   components/
+    -   Will store React components like buttons, textfields etc. which we will be importing.
+-   screens/
+    -   Will store the pages in the system like Login.jsx, Signup.jsx, Dashboard.jsx.
+-   util/
+    -   Will store core pieces of code, that don't fit in the other directories.
+
 ### Tailwind instructions
 
 -   Use the class `font-heading` to use Open Sans font which we agreed is for headings.
