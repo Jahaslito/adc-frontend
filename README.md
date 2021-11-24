@@ -44,3 +44,7 @@ In order that we have a central store of the state of the application we use Rea
     `const { user } = useContext(AppContext);`
 
     Use or mutate the context data.
+
+### Icons
+
+For icons we use React Icons: check the website: https://react-icons.github.io/react-icons/ and documentation at https://react-icons.github.io/react-icons/
