@@ -2,15 +2,12 @@ import React from "react";
 import Button from "../components/Button";
 import { BsArrowRight } from "react-icons/bs";
 import { colors } from "../assets/colors/colors";
+import Input from "../components/Input";
 
 const Login = () => {
     return (
-        <div className="flex flex-row p-4 gap-3">
-            <Button text="Login" primary />
-            <Button
-                text="Login"
-                icon={<BsArrowRight size={20} color={colors.white} />}
-            />
+        <div className="w-full h-screen flex justify-center items-center">
+            <div>Test</div>
         </div>
     );
 };
