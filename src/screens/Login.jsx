@@ -11,7 +11,7 @@ const Login = () => {
         <div className="w-full h-screen flex justify-center items-center bg-gray-100">
             <div className="w-6/12 flex flex-col items-center">
                 <img src={logo} width={150} alt="Jenner" />
-                <span className="font-heading text-xl text-primary mb-4">
+                <span className="font-heading text-lg text-gray-600 font-medium mb-4">
                     JENNER
                 </span>
                 <div className="rounded-sm shadow-lg w-8/12 p-8 bg-white">
@@ -47,9 +47,11 @@ const Login = () => {
                         />
                     </div>
                 </div>
-                <div className="flex flex-row justify-start text-gray-600 text-sm font-medium w-8/12 p-2 items-center gap-2">
-                    <Link to="register">Register</Link>
-                    <BsArrowRight size={16} color={colors.primary} />
+                <div className="flex flex-row justify-start mt-1 w-8/12">
+                    <div className="flex flex-row text-gray-600 text-sm font-medium  p-2 items-center gap-1 hover:text-primary">
+                        <Link to="/register">Register</Link>
+                        <BsArrowRight size={16} color={colors.primary} />
+                    </div>
                 </div>
             </div>
         </div>

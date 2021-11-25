@@ -17,7 +17,7 @@ const Button = ({ label, block, icon, theme, primary }) => {
             } px-7 ${
                 block ? "py-3" : "py-2"
             } flex justify-center items-center gap-3 text-sm font-medium shadow-lg ${
-                primary ? "hover:bg-opacity-80" : "hover:bg-gray-50"
+                primary ? "hover:bg-opacity-80" : "hover:bg-gray-100"
             }  focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-opacity-50  ${
                 block ? "w-full" : "rounded"
             }`}

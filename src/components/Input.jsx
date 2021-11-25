@@ -17,7 +17,7 @@ const Input = ({ label, required, validate, ...props }) => {
                 {label} {required && <span className="text-red-500">*</span>}
             </span>
             <input
-                className="mt-1 border-b-2 border-primary px-2 py-1 focus:outline-none focus:border-blue-500 text-gray-600"
+                className="mt-2 border-b-2 border-primary px-2 py-1 focus:outline-none focus:border-blue-500 text-gray-600"
                 {...props}
             ></input>
             <span className="text-xs text-red-500 mt-1">{validate}</span>
