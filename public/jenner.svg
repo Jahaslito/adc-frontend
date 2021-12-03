@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="48"
+   height="48"
+   viewBox="0 0 12.7 12.7"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.1.1 (eb90963e84, 2021-10-02)"
+   sodipodi:docname="jenner.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="mm"
+     showgrid="false"
+     showborder="true"
+     inkscape:snap-bbox="true"
+     inkscape:bbox-paths="true"
+     inkscape:bbox-nodes="true"
+     inkscape:snap-bbox-edge-midpoints="true"
+     inkscape:snap-bbox-midpoints="true"
+     inkscape:zoom="5.8961277"
+     inkscape:cx="19.249922"
+     inkscape:cy="21.963568"
+     inkscape:window-width="1366"
+     inkscape:window-height="768"
+     inkscape:window-x="0"
+     inkscape:window-y="-37"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1"
+     units="px" />
+  <defs
+     id="defs2">
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient11572">
+      <stop
+         style="stop-color:#00ffcc;stop-opacity:1"
+         offset="0"
+         id="stop11568" />
+      <stop
+         style="stop-color:#00ccff;stop-opacity:1"
+         offset="1"
+         id="stop11570" />
+    </linearGradient>
+    <rect
+       x="-58.460701"
+       y="177.27821"
+       width="447.62872"
+       height="327.95953"
+       id="rect3620" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient11572"
+       id="linearGradient11574"
+       x1="-74.111633"
+       y1="141.40527"
+       x2="-58.48933"
+       y2="-9.5431442"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.0697085,0,0,0.0697085,11.625125,1.7540451)" />
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       id="rect11274"
+       style="fill:url(#linearGradient11574);fill-opacity:1;stroke:none;stroke-width:0.0295464;stroke-linecap:round;stroke-linejoin:round;paint-order:stroke markers fill"
+       d="M 7.547922,1.0888068 V 8.2690637 L 6.4589147,9.3580714 4.6854376,7.5845576 3.5588585,8.7111364 5.3323721,10.48465 6.4589147,11.611193 7.585494,10.48465 9.1411414,8.9290028 V 2.6820261 Z" />
+  </g>
+</svg>

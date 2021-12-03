@@ -8,9 +8,9 @@ import { Link } from "react-router-dom";
 
 const Register = () => {
     return (
-        <div className="bg-gray-100 flex justify-center items-center w-screen">
+        <div className="bg-gray-100 flex justify-center items-center w-full">
             <div className="w-6/12 flex flex-col items-center">
-                <img src={logo} width={50} alt="Jenner" />
+                <img src={logo} width={150} alt="Jenner" />
                 <span className="font-heading text-md text-gray-600 font-medium mb-4">
                     JENNER
                 </span>
