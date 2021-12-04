@@ -10,7 +10,7 @@ const Main = () => {
             <div className="p-6 flex-grow w-8/12 mt-10 shadow-sm bg-white">
                 <Routes>
                     {/*Define routes here*/}
-                    <Route path="logiin" element={<Login />} />
+                    <Route path="login" element={<Login />} />
                 </Routes>
             </div>
             <Footer />
