@@ -9,11 +9,12 @@ import React from "react";
  *  - value: the text value typed by the user
  *  - onChange: setter function to set value as user types
  */
-const Input = ({ label, required, validate, ...props }) => {
+const Input = ({ label, required, validate, noLabel, styles_, ...props }) => {
     return (
-        <div className="flex flex-col">
+        <div className={`flex flex-col ${styles_}`}>
             <span className="text-sm font-medium text-gray-500">
-                {label} {required && <span className="text-red-500">*</span>}
+                {!noLabel && label}
+                {required && <span className="text-red-500">*</span>}
             </span>
             <input
                 className="mt-2 border-b-2 border-gray-500 px-2 py-1 focus:outline-none focus:border-blue-500 text-gray-600"
