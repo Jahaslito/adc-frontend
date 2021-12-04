@@ -49,7 +49,7 @@ const Login = () => {
                 </div>
                 <div className="flex flex-row justify-start mt-1 w-8/12">
                     <div className="flex flex-row text-gray-600 text-sm font-medium  p-2 items-center gap-1 hover:text-primary">
-                        <Link to="/register">Register</Link>
+                        <Link to="/staffVerification">Register</Link>
                         <BsArrowRight size={16} color={colors.primary} />
                     </div>
                 </div>
