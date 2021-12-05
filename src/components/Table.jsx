@@ -23,7 +23,7 @@ const Table = ({ cols, rows, noHeading }) => {
                     {rows.map((row, index) => (
                         <tr
                             key={index}
-                            className={index % 2 === 0 && "bg-gray-100"}
+                            className={index % 2 === 0 ? "bg-gray-100" : ""}
                         >
                             {row.map((cell, index) => (
                                 <td key={index} className="p-3">
