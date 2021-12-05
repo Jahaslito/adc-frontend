@@ -1,21 +1,21 @@
 import React, { useState } from "react";
 import CardButton from "../components/CardButton";
-import Navbar from "../components/Navbar";
 import { AiOutlineUsergroupAdd } from "react-icons/ai";
 import { FaHeartbeat } from "react-icons/fa";
-import { MdOutlineLocalPharmacy } from "react-icons/md";
 import { GiStethoscope } from "react-icons/gi";
 import { IoCalendarOutline } from "react-icons/io5";
 import { ImLab } from "react-icons/im";
 import { colors } from "../assets/colors/colors";
 import { Link } from "react-router-dom";
 import Input from "../components/Input";
+import { BsCameraVideo } from "react-icons/bs";
+import { AiOutlineFileText } from "react-icons/ai";
 
 const Dashboard = () => {
     const [modules, setModules] = useState([
         {
-            label: "Patients and Visits",
-            path: "doctor",
+            label: "Patients",
+            path: "patients",
             icon: <AiOutlineUsergroupAdd size={70} color={colors.primary} />,
         },
         {
@@ -38,11 +38,21 @@ const Dashboard = () => {
             path: "doctor",
             icon: <ImLab size={70} color={colors.primary} />,
         },
+        {
+            label: "Virtual Consultation",
+            path: "vconsul",
+            icon: <BsCameraVideo size={70} color={colors.primary} />,
+        },
+        {
+            label: "Medical Records",
+            path: "me",
+            icon: <AiOutlineFileText size={70} color={colors.primary} />,
+        },
     ]);
     return (
         <div className="w-full text-gray-600 flex flex-col">
             <div className="flex flex-row justify-between items-center px-3 pb-2 border-b">
-                <span className="text-xl font-heading">Modules</span>
+                <span className="text-lg font-light">Modules</span>
                 <Input placeholder="Search modules" styles_="text-sm" noLabel />
             </div>
             {/* List of modules */}
