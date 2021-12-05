@@ -7,7 +7,7 @@ import logo from "../assets/img/jenner.svg";
 import { Link } from "react-router-dom";
 import RoleSelect from "../components/RoleSelect";
 
-const Login = () => {
+const StaffVerification = () => {
     return (
         <div className="w-full h-screen flex justify-center items-center bg-gray-100">
             <div className="w-6/12 flex flex-col items-center">
@@ -17,13 +17,7 @@ const Login = () => {
                 </span>
                 <div className="rounded-sm shadow-lg w-8/12 p-8 bg-white">
                     <div className="font-heading text-gray-600 text-2xl mb-8">
-                        Login
-                    </div>
-                    <div className="mb-6">
-                    <label for="role" className="text-sm font-medium text-gray-500">Role</label>
-                        <div className="mt-3">
-                            <RoleSelect />
-                        </div>
+                        Verification
                     </div>
                     <div className="mb-6">
                         <Input
@@ -33,17 +27,15 @@ const Login = () => {
                             required
                         />
                     </div>
-                    <div className="mb-8">
-                        <Input
-                            label="Password"
-                            type="password"
-                            placeholder="Password"
-                            required
-                        />
+                    <div className="mb-6">
+                    <label for="role" className="text-sm font-medium text-gray-500">Role</label>
+                        <div className="mt-3">
+                            <RoleSelect />
+                        </div>
                     </div>
                     <div>
                         <Button
-                            label="Login"
+                            label="Verify"
                             block
                             icon={
                                 <BsArrowRight
@@ -56,7 +48,7 @@ const Login = () => {
                 </div>
                 <div className="flex flex-row justify-start mt-1 w-8/12">
                     <div className="flex flex-row text-gray-600 text-sm font-medium  p-2 items-center gap-1 hover:text-primary">
-                        <Link to="/staffVerification">Register</Link>
+                        <Link to="/login">Login</Link>
                         <BsArrowRight size={16} color={colors.primary} />
                     </div>
                 </div>
@@ -65,4 +57,4 @@ const Login = () => {
     );
 };
 
-export default Login;
+export default StaffVerification;
