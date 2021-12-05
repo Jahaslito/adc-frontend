@@ -5,6 +5,7 @@ import { colors } from "../assets/colors/colors";
 import Input from "../components/Input";
 import logo from "../assets/img/jenner.svg";
 import { Link } from "react-router-dom";
+import RoleSelect from "../components/RoleSelect";
 
 const Login = () => {
     return (
@@ -17,6 +18,12 @@ const Login = () => {
                 <div className="rounded-sm shadow-lg w-8/12 p-8 bg-white">
                     <div className="font-heading text-gray-600 text-2xl mb-8">
                         Login
+                    </div>
+                    <div className="mb-6">
+                    <label for="role" className="text-sm font-medium text-gray-500">Role</label>
+                        <div className="mt-3">
+                            <RoleSelect />
+                        </div>
                     </div>
                     <div className="mb-6">
                         <Input

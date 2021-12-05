@@ -20,7 +20,7 @@ const StaffRegistration = () => {
                         Choose a password
                     </div>
                     <div className="mb-6">
-                        <label for="role" className="text-gray-500">Role</label>
+                        <label for="role" className="text-sm font-medium text-gray-500">Role</label>
                         <RoleSelect required/>
                     </div>
                     <div className="mb-6">

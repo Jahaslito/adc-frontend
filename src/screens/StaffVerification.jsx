@@ -28,7 +28,7 @@ const StaffVerification = () => {
                         />
                     </div>
                     <div className="mb-6">
-                    <label for="role" className="text-gray-500">Role</label>
+                    <label for="role" className="text-sm font-medium text-gray-500">Role</label>
                         <div className="mt-3">
                             <RoleSelect />
                         </div>
