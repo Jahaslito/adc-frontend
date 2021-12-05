@@ -15,18 +15,13 @@ const Dashboard = () => {
     const [modules, setModules] = useState([
         {
             label: "Patients and Visits",
-            path: "/doctor",
+            path: "doctor",
             icon: <AiOutlineUsergroupAdd size={70} color={colors.primary} />,
         },
         {
             label: "Vital Signs",
             path: "doctor",
             icon: <FaHeartbeat size={70} color={colors.primary} />,
-        },
-        {
-            label: "Pharmacy",
-            path: "doctor",
-            icon: <MdOutlineLocalPharmacy size={70} color={colors.primary} />,
         },
         {
             label: "Doctor",
@@ -51,7 +46,7 @@ const Dashboard = () => {
                 <Input placeholder="Search modules" styles_="text-sm" noLabel />
             </div>
             {/* List of modules */}
-            <div className="p-4 flex flex-row gap-6 flex-wrap justify-evenly content-center">
+            <div className="p-4 flex flex-row gap-y-6 gap-x-20 flex-wrap content-center">
                 {modules.map((module, index) => (
                     <Link to={module.path} key={index}>
                         <CardButton label={module.label} icon={module.icon} />

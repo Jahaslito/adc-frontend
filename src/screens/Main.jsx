@@ -13,9 +13,9 @@ const Main = () => {
             <BreadCrumbs />
             <div className="p-6 flex-grow w-8/12 shadow bg-white">
                 <Routes>
-                    {/*Define routes here*/}
-                    <Route path="/dashboard" element={<Dashboard />} />
-                    <Route path="/doctor" element={<Doctor />} />
+                    {/*Define routes here. Also for breadcrumb add the to the routes array in BreadCrumbs.jsx*/}
+                    <Route path="/*" element={<Dashboard />} />
+                    <Route path="doctor" element={<Doctor />} />
                 </Routes>
             </div>
             <Footer />
