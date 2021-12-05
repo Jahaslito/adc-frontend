@@ -1,11 +1,9 @@
 import React from "react";
-import Button from "../components/Button";
+import Button from "../../components/Button";
 import { BsArrowRight } from "react-icons/bs";
-import { colors } from "../assets/colors/colors";
-import Input from "../components/Input";
-import logo from "../assets/img/jenner.svg";
-import { Link } from "react-router-dom";
-import RoleSelect from "../components/RoleSelect";
+import { colors } from "../../assets/colors/colors";
+import Input from "../../components/Input";
+import logo from "../../assets/img/jenner.svg";
 
 const Login = () => {
     return (
@@ -17,19 +15,13 @@ const Login = () => {
                 </span>
                 <div className="rounded-sm shadow-lg w-8/12 p-8 bg-white">
                     <div className="font-heading text-gray-600 text-2xl mb-8">
-                        Staff Login
-                    </div>
-                    <div className="mb-6">
-                    <label for="role" className="text-sm font-medium text-gray-500">Role</label>
-                        <div className="mt-3">
-                            <RoleSelect />
-                        </div>
+                        Login
                     </div>
                     <div className="mb-6">
                         <Input
-                            label="Staff ID"
+                            label="Email or phone"
                             type="text"
-                            placeholder="Staff ID"
+                            placeholder="Email address or phone"
                             required
                         />
                     </div>
@@ -54,12 +46,12 @@ const Login = () => {
                         />
                     </div>
                 </div>
-                <div className="flex flex-row justify-start mt-1 w-8/12">
+                {/* <div className="flex flex-row justify-start mt-1 w-8/12">
                     <div className="flex flex-row text-gray-600 text-sm font-medium  p-2 items-center gap-1 hover:text-primary">
-                        <Link to="/staffVerification">Register</Link>
+                        <Link to="/register">Register</Link>
                         <BsArrowRight size={16} color={colors.primary} />
                     </div>
-                </div>
+                </div> */}
             </div>
         </div>
     );
