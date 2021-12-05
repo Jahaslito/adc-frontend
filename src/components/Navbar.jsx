@@ -4,7 +4,7 @@ import UserBar from "./UserBar";
 
 const Navbar = () => {
     return (
-        <div className="w-8/12 p-3 bg-white shadow-sm flex flex-row items-center">
+        <div className="w-8/12 p-2 bg-white shadow flex flex-row items-center">
             <div className="flex flex-row items-center gap-2">
                 <img src={logo} width={50} alt="Jenner" />
                 <span className="font-heading text-lg text-gray-600 font-medium ml-3">
