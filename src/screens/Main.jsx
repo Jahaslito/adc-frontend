@@ -8,6 +8,9 @@ import Doctor from "./Doctor";
 import Patient from "./Patient";
 import Patients from "./Patients";
 import Research from "./Research";
+import Lab from "./Lab";
+import LabResult from "./LabResult";
+import LabResultType from "./LabResultType";
 import VitalSigns from "./nurse/VitalSigns";
 import Appointments from "./Appointments";
 
@@ -26,6 +29,9 @@ const Main = () => {
                     <Route path="appoint/*" element={<Appointments />} />
                     <Route path="patients" element={<Patients />} />
                     <Route path="research" element={<Research />} />
+                    <Route path="lab" element={<Lab />} />
+                    <Route path="resultTypes" element={<LabResultType />} />
+                    <Route path="results" element={<LabResult />} />
                 </Routes>
             </div>
             <Footer />

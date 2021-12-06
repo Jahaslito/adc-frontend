@@ -37,6 +37,14 @@ const Register = () => {
                     </div>
                     <div className="mb-6">
                         <Input
+                            label="Date of birth"
+                            type="date"
+                            placeholder="Date of Birth"
+                            required
+                        />
+                    </div>
+                    <div className="mb-6">
+                        <Input
                             label="Email"
                             type="email"
                             placeholder="Email"
@@ -52,14 +60,59 @@ const Register = () => {
                         />
                     </div>
                     <div className="mb-6">
-                        <label for="gender" className="text-gray-500">Gender</label>
-                        <div className="mt-3">
-                            <GenderSelect />
+                        <Input
+                            label="Street Address"
+                            type="text"
+                            placeholder="Street address"
+                            required
+                        />
+                    </div>
+                    <div className="mb-6">
+                        <Input
+                            label="Town"
+                            type="text"
+                            placeholder="Town"
+                            required
+                        />
+                    </div>
+                    <div className="mb-6">
+                        <span className="text-sm font-medium text-gray-500">
+                            {" "}
+                            Gender
+                            <span className="text-red-500">*</span>
+                        </span>
+                        <div className="flex flex-row items-center gap-2 text-sm font-medium text-gray-500 mt-2">
+                            <div className="flex flex-row items-center gap-2">
+                                <label htmlFor="genderBox">Male</label>
+                                <input
+                                    id="genderBox"
+                                    type="radio"
+                                    name="gender"
+                                />
+                            </div>
+                            <div className="flex flex-row items-center gap-2">
+                                <label htmlFor="genderBox">
+                                    Female
+                                </label>
+                                <input
+                                    id="genderBox"
+                                    type="radio"
+                                    name="gender"
+                                />
+                            </div>
                         </div>
                     </div>
                     <div className="mb-6">
                         <Input
                             label="Password"
+                            type="password"
+                            placeholder="Password"
+                            required
+                        />
+                    </div>
+                    <div className="mb-6">
+                        <Input
+                            label="Confirm Password"
                             type="password"
                             placeholder="Password"
                             required
