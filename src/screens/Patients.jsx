@@ -198,6 +198,7 @@ const Patients = () => {
                             <div className="flex flex-row-reverse">
                                 <Button
                                     label="Save"
+                                    onClick={closeModal}
                                     icon={
                                         <MdSave
                                             size={20}
