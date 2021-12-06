@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 import Input from "../components/Input";
 import { BsCameraVideo } from "react-icons/bs";
 import { AiOutlineFileText } from "react-icons/ai";
+import { IoSearchOutline } from "react-icons/io5";
 
 const Dashboard = () => {
     const [modules, setModules] = useState([
@@ -20,7 +21,7 @@ const Dashboard = () => {
         },
         {
             label: "Vital Signs",
-            path: "doctor",
+            path: "vitals",
             icon: <FaHeartbeat size={70} color={colors.primary} />,
         },
         {
@@ -30,12 +31,12 @@ const Dashboard = () => {
         },
         {
             label: "Appointments",
-            path: "doctor",
+            path: "appoint",
             icon: <IoCalendarOutline size={70} color={colors.primary} />,
         },
         {
             label: "Laboratory",
-            path: "doctor",
+            path: "lab",
             icon: <ImLab size={70} color={colors.primary} />,
         },
         {
@@ -47,6 +48,11 @@ const Dashboard = () => {
             label: "Medical Records",
             path: "me",
             icon: <AiOutlineFileText size={70} color={colors.primary} />,
+        },
+        {
+            label: "Research",
+            path: "research",
+            icon: <IoSearchOutline size={70} color={colors.primary} />,
         },
     ]);
     return (

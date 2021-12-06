@@ -7,6 +7,7 @@ import BreadCrumbs from "../components/BreadCrumbs";
 import Doctor from "./Doctor";
 import Patient from "./Patient";
 import Patients from "./Patients";
+import Research from "./Research";
 
 const Main = () => {
     return (
@@ -20,6 +21,7 @@ const Main = () => {
                     <Route path="doctor" element={<Doctor />} />
                     <Route path="me" element={<Patient />} />
                     <Route path="patients" element={<Patients />} />
+                    <Route path="research" element={<Research />} />
                 </Routes>
             </div>
             <Footer />

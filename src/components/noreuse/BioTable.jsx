@@ -15,7 +15,7 @@ const BioTable = ({ bioData }) => {
                     </tr>
                     <tr>
                         <td className="p-2 font-medium">Phone</td>
-                        <td className="p-2">+{bioData.phone}</td>
+                        <td className="p-2">{bioData.phone}</td>
                     </tr>
                     <tr>
                         <td className="p-2 font-medium">Address</td>
