@@ -8,6 +8,9 @@ import Doctor from "./Doctor";
 import Patient from "./Patient";
 import Patients from "./Patients";
 import Research from "./Research";
+import PatientVisits from "./PatientVisits";
+import Appointments from "./Appointments";
+import VitalSigns from "./VitalSigns";
 
 const Main = () => {
     return (
@@ -21,7 +24,10 @@ const Main = () => {
                     <Route path="doctor" element={<Doctor />} />
                     <Route path="me" element={<Patient />} />
                     <Route path="patients" element={<Patients />} />
+                    <Route path="patientvisits" element={<PatientVisits />} />
+                    <Route path="appoint" element={<Appointments />} />
                     <Route path="research" element={<Research />} />
+                    <Route path="vitals" element={<VitalSigns />} />
                 </Routes>
             </div>
             <Footer />

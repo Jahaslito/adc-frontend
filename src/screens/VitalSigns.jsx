@@ -1,3 +1,4 @@
+
 import React from "react";
 import Button from "../components/Button";
 import Input from "../components/Input";
@@ -7,6 +8,8 @@ import { colors } from "../assets/colors/colors";
 import { IoCloseOutline } from "react-icons/io5";
 import Modal from "react-modal";
 import { MdSave } from "react-icons/md";
+import { MdHistoryToggleOff } from "react-icons/md";
+
 
 const customStyles = {
     content: {
@@ -24,7 +27,7 @@ const customStyles = {
 
 Modal.setAppElement("#root");
 
-const Patients = () => {
+const VitalSigns = () => {
     let subtitle;
     const [modalIsOpen, setIsOpen] = React.useState(false);
 
@@ -40,43 +43,54 @@ const Patients = () => {
     function closeModal() {
         setIsOpen(false);
     }
-    const cols = ["Name", "Gender", "Phone", "Email", "Address"];
+    const cols = ["Name",  "Gender","Phone", "Email", "weight", "height","Blood Pressure" ,"BMI", ];
     const rows = [
         [
-            "Bob Ross",
+            "Michael Owen",
             "Male",
             "+254708502805",
-            "bobross@gmail.com",
-            "Ole Sangale Road, Siwaka",
-            
+            "Mowen@gmail.com",
+            "60kg",
+            "1.5m",
+            "132/88 mmHg",
+            "28 kg/m²"
         ],
         [
-            "Bob Ross",
+            "Michael Owen",
             "Male",
             "+254708502805",
-            "bobross@gmail.com",
-            "Ole Sangale Road, Siwaka",
+            "Mowen@gmail.com",
+            "60kg",
+            "1.5m",
+            "132/88 mmHg",
+            "28 kg/m²"
         ],
         [
-            "Bob Ross",
+            "Michael Owen",
             "Male",
             "+254708502805",
-            "bobross@gmail.com",
-            "Ole Sangale Road, Siwaka",
+            "Mowen@gmail.com",
+            "60kg",
+            "1.5m",
+            "132/88 mmHg",
+            "28 kg/m²"
         ],
         [
-            "Bob Ross",
+            "Michael Owen",
             "Male",
             "+254708502805",
-            "bobross@gmail.com",
-            "Ole Sangale Road, Siwaka",
+            "Mowen@gmail.com",
+            "60kg",
+            "1.5m",
+            "132/88 mmHg",
+            "28 kg/m²"
         ],
     ];
 
     return (
         <div className="w-full text-gray-600 flex flex-col">
             <div className="flex flex-row items-center justify-between px-3 pb-3 border-b">
-                <span className="text-lg font-light">Patients</span>
+                <span className="text-lg font-bold">Vitals</span>
                 <Input
                     placeholder="Search patients"
                     styles_="text-sm"
@@ -86,9 +100,9 @@ const Patients = () => {
             <div className="mt-6 flex flex-col gap-3">
                 <div className="flex flex-row-reverse mb-3">
                     <Button
-                        label="New patient"
+                        label="Input Vitals"
                         icon={
-                            <AiOutlineUserAdd
+                            <MdHistoryToggleOff
                                 size={20}
                                 color={colors.primary}
                             />
@@ -97,7 +111,7 @@ const Patients = () => {
                     />
                 </div>
                 <Table cols={cols} rows={rows} />
-                <Modal
+                 <Modal
                     isOpen={modalIsOpen}
                     onAfterOpen={afterOpenModal}
                     onRequestClose={closeModal}
@@ -109,7 +123,7 @@ const Patients = () => {
                         Hello
                     </h2>
                     <div className="py-3 px-6 border-b text-sm font-medium text-gray-600 flex justify-between items-center">
-                        <span>New patient</span>
+                        <span>Patient Vitals Entry</span>
                         <div
                             className="p-2 rounded-full border border-white hover:border-gray-200"
                             onClick={closeModal}
@@ -135,33 +149,7 @@ const Patients = () => {
                                     required
                                 />
                             </div>
-                            <div className="flex flex-col mb-6">
-                                <span className="text-sm font-medium text-gray-500">
-                                    {" "}
-                                    Gender
-                                    <span className="text-red-500">*</span>
-                                </span>
-                                <div className="flex flex-row items-center gap-2 text-sm font-medium text-gray-500 mt-2">
-                                    <div className="flex flex-row items-center gap-2">
-                                        <label htmlFor="genderBox">Male</label>
-                                        <input
-                                            id="genderBox"
-                                            type="radio"
-                                            name="gender"
-                                        />
-                                    </div>
-                                    <div className="flex flex-row items-center gap-2">
-                                        <label htmlFor="genderBox">
-                                            Female
-                                        </label>
-                                        <input
-                                            id="genderBox"
-                                            type="radio"
-                                            name="gender"
-                                        />
-                                    </div>
-                                </div>
-                            </div>
+                            
                             <div className="mb-6">
                                 <Input
                                     label="Email address"
@@ -170,29 +158,45 @@ const Patients = () => {
                                     required
                                 />
                             </div>
+                            <div className="mb-6">
+                                <Input
+                                    label="Height"
+                                    type="text"
+                                    placeholder="Height(meters)"
+                                    required
+                                />
+                            </div>
                         </div>
                         <div className="w-6/12 flex flex-col py-2 px-4">
                             <div className="mb-6">
                                 <Input
-                                    label="Phone number"
-                                    type="phone"
-                                    placeholder="+254"
+                                    label="Weight"
+                                    type="text"
+                                    placeholder="Weight{kg)"
                                     required
                                 />
                             </div>
                             <div className="mb-6">
                                 <Input
-                                    label="Street Address"
+                                    label="BMI"
                                     type="text"
-                                    placeholder="Street address"
+                                    placeholder="BMI"
                                     required
                                 />
                             </div>
                             <div className="mb-6">
                                 <Input
-                                    label="Town"
+                                    label="Temperature"
                                     type="text"
-                                    placeholder="Town"
+                                    placeholder="Temperature(degree celcius)"
+                                    required
+                                />
+                            </div>
+                            <div className="mb-6">
+                                <Input
+                                    label="Blood Pressure"
+                                    type="text"
+                                    placeholder="Blood pressure(mm/Hg)"
                                     required
                                 />
                             </div>
@@ -211,9 +215,12 @@ const Patients = () => {
                         </div>
                     </div>
                 </Modal>
+                    
+
+                    
             </div>
         </div>
     );
 };
 
-export default Patients;
+export default VitalSigns;

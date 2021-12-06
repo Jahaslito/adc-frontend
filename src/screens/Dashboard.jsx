@@ -11,6 +11,7 @@ import Input from "../components/Input";
 import { BsCameraVideo } from "react-icons/bs";
 import { AiOutlineFileText } from "react-icons/ai";
 import { IoSearchOutline } from "react-icons/io5";
+import { MdHistoryToggleOff } from "react-icons/md";
 
 const Dashboard = () => {
     const [modules, setModules] = useState([
@@ -48,6 +49,11 @@ const Dashboard = () => {
             label: "Medical Records",
             path: "me",
             icon: <AiOutlineFileText size={70} color={colors.primary} />,
+        },
+        {
+            label: "Patient Visits",
+            path: "patientvisits",
+            icon: <MdHistoryToggleOff size={70} color={colors.primary} />,
         },
         {
             label: "Research",
