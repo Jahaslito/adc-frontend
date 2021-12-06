@@ -8,6 +8,8 @@ import Doctor from "./Doctor";
 import Patient from "./Patient";
 import Patients from "./Patients";
 import Research from "./Research";
+import VitalSigns from "./nurse/VitalSigns";
+import Appointments from "./Appointments";
 
 const Main = () => {
     return (
@@ -18,8 +20,10 @@ const Main = () => {
                 <Routes>
                     {/*Define routes here. Also for breadcrumb add the to the routes array in BreadCrumbs.jsx*/}
                     <Route path="/*" element={<Dashboard />} />
-                    <Route path="doctor" element={<Doctor />} />
+                    <Route path="doctor/*" element={<Doctor />} />
+                    <Route path="vitals/*" element={<VitalSigns />} />
                     <Route path="me" element={<Patient />} />
+                    <Route path="appoint/*" element={<Appointments />} />
                     <Route path="patients" element={<Patients />} />
                     <Route path="research" element={<Research />} />
                 </Routes>

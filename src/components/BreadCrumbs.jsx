@@ -7,7 +7,13 @@ import { colors } from "../assets/colors/colors";
 const BreadCrumbs = () => {
     const routes = [
         { path: "/", breadcrumb: "Dashboard" },
-        { path: "/doctor", breadcrumb: "Doctor" },
+        { path: "/doctor", breadcrumb: "Diagnosis and Prescription" },
+        { path: "/vitals", breadcrumb: "Vital Signs" },
+        { path: "/doctor", breadcrumb: "Diagnosis and Prescription" },
+        { path: "/appoint", breadcrumb: "Appointments" },
+        { path: "/patients", breadcrumb: "Patients" },
+        { path: "/research", breadcrumb: "Research" },
+        { path: "/lab", breadcrumb: "Laboratory" },
     ];
     const breadcrumbs = useReactRouterBreadcrumbs(routes);
     return (
