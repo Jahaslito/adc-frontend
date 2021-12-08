@@ -8,11 +8,13 @@ import Doctor from "./Doctor";
 import Patient from "./Patient";
 import Patients from "./Patients";
 import Research from "./Research";
+import PatientVisits from "./PatientVisits";
+import Appointments from "./Appointments";
+import VitalSigns from "./VitalSigns";
 import Lab from "./Lab";
 import LabResult from "./LabResult";
 import LabResultType from "./LabResultType";
-import VitalSigns from "./nurse/VitalSigns";
-import Appointments from "./Appointments";
+//import VitalSigns from "./nurse/VitalSigns";
 
 const Main = () => {
     return (
@@ -28,6 +30,8 @@ const Main = () => {
                     <Route path="me" element={<Patient />} />
                     <Route path="appoint/*" element={<Appointments />} />
                     <Route path="patients" element={<Patients />} />
+                    <Route path="patientvisits" element={<PatientVisits />} />
+                    <Route path="appoint" element={<Appointments />} />
                     <Route path="research" element={<Research />} />
                     <Route path="lab" element={<Lab />} />
                     <Route path="resultTypes" element={<LabResultType />} />

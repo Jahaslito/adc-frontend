@@ -8,8 +8,9 @@ import React from "react";
  * icon - pass an icon as component
  * theme - `danger` to specify red button
  */
-const Button = ({ label, block, icon, theme, primary, ...props }) => {
+const Button = ({ label, block, icon, theme, primary,   ...props }) => {
     return (
+        
         <button
             className={`${
                 primary ? "text-white bg-" : "border-2 border-"
@@ -26,8 +27,11 @@ const Button = ({ label, block, icon, theme, primary, ...props }) => {
             <span className={`flex-grow flex justify-center items-center`}>
                 {label}
             </span>
+            
+            
 
             <span className="flex justify-center items-center ">{icon}</span>
+        
         </button>
     );
 };
