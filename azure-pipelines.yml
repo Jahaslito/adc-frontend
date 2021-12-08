@@ -9,11 +9,9 @@ steps:
 - task: Npm@1
   inputs:
     command: 'install'
-    workingDir: '$(Build.SourcesDirectory)/adc-frontend'
 - task: Npm@1
   inputs:
     command: 'custom'
-    workingDir: '$(Build.SourcesDirectory)/adc-frontend'
     customCommand: 'run build'
 - task: PublishBuildArtifacts@1
   inputs:
