@@ -1,12 +1,14 @@
-import React from "react";
-import Button from "../components/Button";
-import Input from "../components/Input";
-import Table from "../components/Table";
+import React, { useEffect, useState } from 'react';
+import TextArea from '../components/TextArea';
 import { colors } from "../assets/colors/colors";
-import { IoCloseOutline } from "react-icons/io5";
-import Modal from "react-modal";
+import Table from "../components/Table";
+import Button from "../components/Button";
 import { MdSave } from "react-icons/md";
-import { MdHistoryToggleOff } from "react-icons/md";
+import Modal from "react-modal";
+import Input from '../components/Input';
+import { BsFileEarmarkPlusFill } from "react-icons/bs";
+import { IoCloseOutline } from "react-icons/io5";
+
 
 const customStyles = {
     content: {
@@ -22,9 +24,7 @@ const customStyles = {
     },
 };
 
-Modal.setAppElement("#root");
-
-const Appointments = () => {
+const LabResult = () => {
     let subtitle;
     const [modalIsOpen, setIsOpen] = React.useState(false);
 
@@ -33,72 +33,21 @@ const Appointments = () => {
     }
 
     function afterOpenModal() {
-        // references are now sync'd and can be accessed.
         subtitle.style.color = "#f00";
     }
 
     function closeModal() {
         setIsOpen(false);
     }
-    const cols = [
-        "Name",
-        "Gender",
-        "Phone",
-        "Email",
-        "Time",
-        "Date",
-        "Venue",
-        "Status",
-    ];
-    const rows = [
-        [
-            "Jeff Kamau",
-            "Male",
-            "+254708502805",
-            "jeffk@gmail.com",
-            "12:00pm",
-            "03/03/2021",
-            "Ward 12",
-            "Pending",
-        ],
-        [
-            "Tony Mogoa",
-            "Male",
-            "+25470167612",
-            "tonym@gmail.com",
-            "9:00am",
-            "02/03/2021",
-            "Amani wing",
-            "Done",
-        ],
-        [
-            "Kenneth Copeland",
-            "Male",
-            "+2547088654",
-            "KennethM@gmail.com",
-            "11:30pm",
-            "04/12/2021",
-            "Jasiri Wing",
-            "Pending",
-        ],
-        [
-            "Beth Macbeth",
-            "female",
-            "+2547088654",
-            "BethM@gmail.com",
-            "11:30am",
-            "03/11/2021",
-            "Room 12",
-            "Pending",
-        ],
-    ];
+    const cols = ["Lab Test ID", "Patient ID", "Results", "Test Type", "Resutlt Type ID"];
+    const rows = [[]];
 
     return (
         <div className="w-full text-gray-600 flex flex-col">
             <div className="flex flex-row items-center justify-between px-3 pb-3 border-b">
-                <span className="text-lg font-bold">Appointments</span>
+                <span className="text-lg font-light">Lab Results</span>
                 <Input
-                    placeholder="Search patients"
+                    placeholder="Search results"
                     styles_="text-sm"
                     noLabel
                 />
@@ -106,9 +55,9 @@ const Appointments = () => {
             <div className="mt-6 flex flex-col gap-3">
                 <div className="flex flex-row-reverse mb-3">
                     <Button
-                        label="Schedule Appointment"
+                        label="New Result"
                         icon={
-                            <MdHistoryToggleOff
+                            <BsFileEarmarkPlusFill
                                 size={20}
                                 color={colors.primary}
                             />
@@ -129,7 +78,7 @@ const Appointments = () => {
                         Hello
                     </h2>
                     <div className="py-3 px-6 border-b text-sm font-medium text-gray-600 flex justify-between items-center">
-                        <span>New Appointment</span>
+                        <span>New Result</span>
                         <div
                             className="p-2 rounded-full border border-white hover:border-gray-200"
                             onClick={closeModal}
@@ -141,26 +90,32 @@ const Appointments = () => {
                         <div className="w-6/12 flex flex-col py-2 px-4">
                             <div className="mb-6">
                                 <Input
-                                    label="Firstname"
+                                    label="Lab Test ID"
                                     type="text"
-                                    placeholder="Firstname"
+                                    placeholder="Test ID"
                                     required
                                 />
                             </div>
                             <div className="mb-6">
                                 <Input
-                                    label="Lastname"
+                                    label="Patient ID"
                                     type="text"
-                                    placeholder="Lastname"
+                                    placeholder="Patient ID"
                                     required
                                 />
                             </div>
-
+                            <div className="mb-6">
+                                <TextArea
+                                    placeholder="Type results here"
+                                    cols="40"
+                                    rows="4"
+                                />
+                            </div>
                             <div className="mb-6">
                                 <Input
-                                    label="Venue"
+                                    label="Test Type"
                                     type="text"
-                                    placeholder="Venue"
+                                    placeholder="Test Type"
                                     required
                                 />
                             </div>
@@ -168,32 +123,15 @@ const Appointments = () => {
                         <div className="w-6/12 flex flex-col py-2 px-4">
                             <div className="mb-6">
                                 <Input
-                                    label="Date"
-                                    type="date"
-                                    placeholder="date"
-                                    required
-                                />
-                            </div>
-                            <div className="mb-6">
-                                <Input
-                                    label="Time"
-                                    type="time"
-                                    placeholder="time"
-                                    required
-                                />
-                            </div>
-                            <div className="mb-6">
-                                <Input
-                                    label="Email"
-                                    type="email"
-                                    placeholder="Email"
+                                    label="Result Type ID"
+                                    type="text"
+                                    placeholder="Result Type ID"
                                     required
                                 />
                             </div>
                             <div className="flex flex-row-reverse">
                                 <Button
                                     label="Save"
-                                    onClick={closeModal}
                                     icon={
                                         <MdSave
                                             size={20}
@@ -208,6 +146,6 @@ const Appointments = () => {
             </div>
         </div>
     );
-};
-
-export default Appointments;
+}
+ 
+export default LabResult;

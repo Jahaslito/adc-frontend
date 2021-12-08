@@ -11,6 +11,10 @@ import Research from "./Research";
 import PatientVisits from "./PatientVisits";
 import Appointments from "./Appointments";
 import VitalSigns from "./VitalSigns";
+import Lab from "./Lab";
+import LabResult from "./LabResult";
+import LabResultType from "./LabResultType";
+//import VitalSigns from "./nurse/VitalSigns";
 
 const Main = () => {
     return (
@@ -21,13 +25,17 @@ const Main = () => {
                 <Routes>
                     {/*Define routes here. Also for breadcrumb add the to the routes array in BreadCrumbs.jsx*/}
                     <Route path="/*" element={<Dashboard />} />
-                    <Route path="doctor" element={<Doctor />} />
+                    <Route path="doctor/*" element={<Doctor />} />
+                    <Route path="vitals/*" element={<VitalSigns />} />
                     <Route path="me" element={<Patient />} />
+                    <Route path="appoint/*" element={<Appointments />} />
                     <Route path="patients" element={<Patients />} />
                     <Route path="patientvisits" element={<PatientVisits />} />
                     <Route path="appoint" element={<Appointments />} />
                     <Route path="research" element={<Research />} />
-                    <Route path="vitals" element={<VitalSigns />} />
+                    <Route path="lab" element={<Lab />} />
+                    <Route path="resultTypes" element={<LabResultType />} />
+                    <Route path="results" element={<LabResult />} />
                 </Routes>
             </div>
             <Footer />
