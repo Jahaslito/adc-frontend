@@ -8,13 +8,12 @@ import React from "react";
  * icon - pass an icon as component
  * theme - `danger` to specify red button
  */
-const Button = ({ label, block, icon, theme, primary,   ...props }) => {
+const Button = ({ label, block, icon, theme, primary, ...props }) => {
     return (
-        
         <button
             className={`${
-                primary ? "text-white bg-" : "border-2 border-"
-            }${setTheme(theme)} ${!primary && "text-"}${setTheme(theme)}
+                primary ? `text-white ${setFillTheme(theme)}` : "border-2"
+            } ${setBorderTheme(theme)} ${!primary && setTextTheme(theme)}
              px-7 ${
                  block ? "py-3" : "py-2"
              } flex justify-center items-center gap-3 text-sm font-medium shadow-sm ${
@@ -27,21 +26,36 @@ const Button = ({ label, block, icon, theme, primary,   ...props }) => {
             <span className={`flex-grow flex justify-center items-center`}>
                 {label}
             </span>
-            
-            
 
             <span className="flex justify-center items-center ">{icon}</span>
-        
         </button>
     );
 };
 
-function setTheme(theme) {
+function setBorderTheme(theme) {
     switch (theme) {
         case "danger":
-            return "red-500";
+            return "border-red-500";
         default:
-            return "primary";
+            return "border-primary";
+    }
+}
+
+function setFillTheme(theme) {
+    switch (theme) {
+        case "danger":
+            return "bg-red-500";
+        default:
+            return "bg-primary";
+    }
+}
+
+function setTextTheme(theme) {
+    switch (theme) {
+        case "danger":
+            return "text-red-500";
+        default:
+            return "text-primary";
     }
 }
 

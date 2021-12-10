@@ -27,41 +27,19 @@ const Login = () => {
                         <div className="flex flex-row items-center gap-2 text-sm font-medium text-gray-500 mt-2">
                             <div className="flex flex-row items-center gap-2">
                                 <label htmlFor="roleBox">Doctor</label>
-                                <input
-                                    id="roleBox"
-                                    type="radio"
-                                    name="role"
-                                />
+                                <input id="roleBox" type="radio" name="role" />
                             </div>
                             <div className="flex flex-row items-center gap-2">
-                                <label htmlFor="roleBox">
-                                    Nurse
-                                </label>
-                                <input
-                                    id="roleBox"
-                                    type="radio"
-                                    name="role"
-                                />
+                                <label htmlFor="roleBox">Nurse</label>
+                                <input id="roleBox" type="radio" name="role" />
                             </div>
                             <div className="flex flex-row items-center gap-2">
-                                <label htmlFor="roleBox">
-                                    Lab Technician
-                                </label>
-                                <input
-                                    id="roleBox"
-                                    type="radio"
-                                    name="role"
-                                />
+                                <label htmlFor="roleBox">Lab Technician</label>
+                                <input id="roleBox" type="radio" name="role" />
                             </div>
                             <div className="flex flex-row items-center gap-2">
-                                <label htmlFor="roleBox">
-                                    Receptionist
-                                </label>
-                                <input
-                                    id="roleBox"
-                                    type="radio"
-                                    name="role"
-                                />
+                                <label htmlFor="roleBox">Receptionist</label>
+                                <input id="roleBox" type="radio" name="role" />
                             </div>
                         </div>
                     </div>
