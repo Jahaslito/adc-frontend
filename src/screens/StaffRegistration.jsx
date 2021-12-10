@@ -1,12 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Button from "../components/Button";
 import { BsArrowRight } from "react-icons/bs";
 import { colors } from "../assets/colors/colors";
 import Input from "../components/Input";
 import logo from "../assets/img/jenner.svg";
 import { Link } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 const StaffRegistration = () => {
+    const { state } = useLocation();
+    useEffect(() => {
+        console.log(state.role);
+    }, []);
     return (
         <div className="w-full h-screen flex justify-center items-center bg-gray-100">
             <div className="w-6/12 flex flex-col items-center">
@@ -18,53 +23,7 @@ const StaffRegistration = () => {
                     <div className="font-heading text-gray-600 text-2xl mb-8">
                         Choose a password
                     </div>
-                    <div className="mb-6">
-                        <span className="text-sm font-medium text-gray-500">
-                            {" "}
-                            Role
-                            <span className="text-red-500">*</span>
-                        </span>
-                        <div className="flex flex-row items-center gap-2 text-sm font-medium text-gray-500 mt-2">
-                            <div className="flex flex-row items-center gap-2">
-                                <label htmlFor="roleBox">Doctor</label>
-                                <input
-                                    id="roleBox"
-                                    type="radio"
-                                    name="role"
-                                />
-                            </div>
-                            <div className="flex flex-row items-center gap-2">
-                                <label htmlFor="roleBox">
-                                    Nurse
-                                </label>
-                                <input
-                                    id="roleBox"
-                                    type="radio"
-                                    name="role"
-                                />
-                            </div>
-                            <div className="flex flex-row items-center gap-2">
-                                <label htmlFor="roleBox">
-                                    Lab Technician
-                                </label>
-                                <input
-                                    id="roleBox"
-                                    type="radio"
-                                    name="role"
-                                />
-                            </div>
-                            <div className="flex flex-row items-center gap-2">
-                                <label htmlFor="roleBox">
-                                    Receptionist
-                                </label>
-                                <input
-                                    id="roleBox"
-                                    type="radio"
-                                    name="role"
-                                />
-                            </div>
-                        </div>
-                    </div>
+
                     <div className="mb-6">
                         <Input
                             label="Password"

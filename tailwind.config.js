@@ -10,6 +10,9 @@ module.exports = {
                 current: "currentColor",
                 primary: "#000080",
             },
+            backgroundImage: {
+                landing: "url('/src/assets/img/bg.jpg')",
+            },
         },
         fontFamily: {
             sans: ["Inter", ...defaultTheme.fontFamily.sans],

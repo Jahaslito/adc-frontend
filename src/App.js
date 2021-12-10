@@ -9,6 +9,7 @@ import StaffRegistration from "./screens/StaffRegistration";
 
 import { AppContext } from "./util/AppContext";
 import LandingPage from "./screens/LandingPage";
+import { ProtectedRoute } from "./util/ProtectedRoute";
 
 function App() {
     const { user } = useContext(AppContext);
@@ -19,9 +20,21 @@ function App() {
                 <Route path="/landing" element={<LandingPage />} />
                 <Route path="/patient/login" element={<PatientLogin />} />
                 <Route path="/register" element={<Register />} />
-                <Route path="/*" element={<Main />} />
-                <Route path="/staffVerification" element={<StaffVerification />} />
-                <Route path="/staffRegistration" element={<StaffRegistration />} />
+
+                {/**
+                 * This is a protected route that needs auth
+                 */}
+                <Route path="/*" element={<ProtectedRoute />}>
+                    <Route path="/*" element={<Main />} />
+                </Route>
+                <Route
+                    path="/staff_verification"
+                    element={<StaffVerification />}
+                />
+                <Route
+                    path="/staff_registration"
+                    element={<StaffRegistration />}
+                />
             </Routes>
         </BrowserRouter>
     );
