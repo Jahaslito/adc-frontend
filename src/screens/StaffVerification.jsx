@@ -7,11 +7,16 @@ import logo from "../assets/img/jenner.svg";
 import { Link } from "react-router-dom";
 import { Api } from "../util/Api";
 import { useNavigate } from "react-router-dom";
+import Alert from "../components/Alert";
 
 const StaffVerification = () => {
     const navigate = useNavigate();
     const [staffId, setStaffId] = useState("");
     const [role, setRole] = useState("Doctor");
+
+    //alert
+    const [alertLabel, setAlertLabel] = useState("");
+    const [alertHidden, setAlertHidden] = useState(true);
 
     return (
         <div className="w-full h-screen flex justify-center items-center bg-gray-100">
@@ -24,6 +29,12 @@ const StaffVerification = () => {
                     <div className="font-heading text-gray-600 text-2xl mb-8">
                         Let's Verify You
                     </div>
+                    <Alert
+                        label={alertLabel}
+                        theme="red-500"
+                        hidden={alertHidden}
+                        setHidden={setAlertHidden}
+                    />
                     <div className="mb-6">
                         <Input
                             label="Staff ID"
@@ -118,14 +129,26 @@ const StaffVerification = () => {
         const params = new FormData();
         params.append("role", role);
 
+        if (!staffId) {
+            setAlertLabel("Staff ID cannot be empty");
+            setAlertHidden(false);
+            return;
+        }
+
         Api.post(`verify_staff/${staffId}`, params)
             .then((resp) => {
                 if (resp.data.success) {
-                    navigate("/staff_registration", { state: { role: role } });
+                    navigate("/staff_registration", {
+                        state: { role: role, staffId: staffId },
+                    });
                 }
             })
             .catch((err) => {
-                console.log(err.response.data);
+                if (!err.response.data.success) {
+                    setAlertLabel(err.response.data.error?.message);
+                    setAlertHidden(false);
+                }
+                //console.log(err.response.data);
             });
     }
 };

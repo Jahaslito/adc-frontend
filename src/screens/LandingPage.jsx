@@ -22,7 +22,7 @@ const LandingPage = () => {
                     Africa.
                 </span>
                 <div className="flex flex-row-reverse w-10/12">
-                    <Link to="/patient/login">
+                    <Link to="/login">
                         <Button
                             label="Login"
                             icon={

@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
+import { AppContext } from "./AppContext";
 import { Outlet, Navigate } from "react-router-dom";
 
 export const ProtectedRoute = () => {
-    const auth = null;
-    return auth ? <Outlet /> : <Navigate to="/landing" />;
+    const { user } = useContext(AppContext);
+
+    return user ? <Outlet /> : <Navigate to="/landing" />;
 };

@@ -1,18 +1,16 @@
 import React from "react";
-import { BiLoaderAlt } from "react-icons/bi";
-import { CgSpinnerTwo } from "react-icons/cg";
 import { ImSpinner8 } from "react-icons/im";
 
 import { colors } from "../assets/colors/colors";
 
-const Spinner = () => {
+/**
+ *
+ * pass tailwind style
+ */
+const Spinner = ({ size, style }) => {
     return (
-        <div className="p-2 ">
-            <ImSpinner8
-                size={22}
-                color={colors.primary}
-                className="animate-spin"
-            />
+        <div className={`p-2 ${style}`}>
+            <ImSpinner8 size={size} className="animate-spin" />
         </div>
     );
 };
