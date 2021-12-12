@@ -4,6 +4,7 @@ export const AppContext = createContext();
 
 export const AppContextProvider = ({ children }) => {
     const [user, setUser] = useState(getUser);
+    const [loaderHidden, setLoaderHidden] = useState(true);
 
     //functions
     function storeSession(user) {
@@ -16,7 +17,14 @@ export const AppContextProvider = ({ children }) => {
         setUser(null);
     }
 
-    const context = { user, setUser, storeSession, deleteSession };
+    const context = {
+        user,
+        setUser,
+        storeSession,
+        deleteSession,
+        loaderHidden,
+        setLoaderHidden,
+    };
 
     return (
         <AppContext.Provider value={context}>{children}</AppContext.Provider>

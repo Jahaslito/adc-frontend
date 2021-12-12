@@ -25,7 +25,7 @@ const Patient = () => {
         <>
             {" "}
             <div className="flex flex-row mt-4">
-                <div className="w-5/12 flex flex-col p-2 border-r">
+                <div className="w-5/12 flex flex-col p-2 ">
                     <span className="font-medium text-gray-600 mb-4">
                         Bob Ross
                     </span>

@@ -1,4 +1,3 @@
-
 import React from "react";
 import Button from "../components/Button";
 import Input from "../components/Input";
@@ -9,7 +8,6 @@ import { IoCloseOutline } from "react-icons/io5";
 import Modal from "react-modal";
 import { MdSave } from "react-icons/md";
 import { MdHistoryToggleOff } from "react-icons/md";
-
 
 const customStyles = {
     content: {
@@ -43,7 +41,16 @@ const VitalSigns = () => {
     function closeModal() {
         setIsOpen(false);
     }
-    const cols = ["Name",  "Gender","Phone", "Email", "weight", "height","Blood Pressure" ,"BMI", ];
+    const cols = [
+        "Name",
+        "Gender",
+        "Phone",
+        "Email",
+        "weight",
+        "height",
+        "Blood Pressure",
+        "BMI",
+    ];
     const rows = [
         [
             "Michael Owen",
@@ -53,7 +60,7 @@ const VitalSigns = () => {
             "60kg",
             "1.5m",
             "132/88 mmHg",
-            "28 kg/m²"
+            "28 kg/m²",
         ],
         [
             "Michael Owen",
@@ -63,7 +70,7 @@ const VitalSigns = () => {
             "60kg",
             "1.5m",
             "132/88 mmHg",
-            "28 kg/m²"
+            "28 kg/m²",
         ],
         [
             "Michael Owen",
@@ -73,7 +80,7 @@ const VitalSigns = () => {
             "60kg",
             "1.5m",
             "132/88 mmHg",
-            "28 kg/m²"
+            "28 kg/m²",
         ],
         [
             "Michael Owen",
@@ -83,14 +90,14 @@ const VitalSigns = () => {
             "60kg",
             "1.5m",
             "132/88 mmHg",
-            "28 kg/m²"
+            "28 kg/m²",
         ],
     ];
 
     return (
         <div className="w-full text-gray-600 flex flex-col">
             <div className="flex flex-row items-center justify-between px-3 pb-3 border-b">
-                <span className="text-lg font-bold">Vitals</span>
+                <span className="text-lg font-light">Vitals</span>
                 <Input
                     placeholder="Search patients"
                     styles_="text-sm"
@@ -111,7 +118,7 @@ const VitalSigns = () => {
                     />
                 </div>
                 <Table cols={cols} rows={rows} />
-                 <Modal
+                <Modal
                     isOpen={modalIsOpen}
                     onAfterOpen={afterOpenModal}
                     onRequestClose={closeModal}
@@ -149,7 +156,7 @@ const VitalSigns = () => {
                                     required
                                 />
                             </div>
-                            
+
                             <div className="mb-6">
                                 <Input
                                     label="Email address"
@@ -215,9 +222,6 @@ const VitalSigns = () => {
                         </div>
                     </div>
                 </Modal>
-                    
-
-                    
             </div>
         </div>
     );

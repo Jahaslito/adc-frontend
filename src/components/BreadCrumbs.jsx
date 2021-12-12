@@ -22,15 +22,13 @@ const BreadCrumbs = () => {
                 key + 1 === breadcrumbs.length ? (
                     <span key={key}>{breadcrumb}</span>
                 ) : (
-                    <>
-                        <Link key={key} to={match.pathname}>
-                            {breadcrumb}
-                        </Link>
+                    <React.Fragment key={key}>
+                        <Link to={match.pathname}>{breadcrumb}</Link>
                         <MdOutlineChevronRight
                             size={16}
                             color={colors.primary}
                         />
-                    </>
+                    </React.Fragment>
                 )
             )}
         </div>

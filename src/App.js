@@ -24,9 +24,17 @@ function App() {
                 {/**
                  * This is a protected route that needs auth
                  */}
-                <Route path="/*" element={<ProtectedRoute />}>
-                    <Route path="/*" element={<Main />} />
-                </Route>
+                <Route
+                    path="/*"
+                    element={
+                        <ProtectedRoute>
+                            <Main />
+                        </ProtectedRoute>
+                    }
+                />
+
+                {/* </Route> */}
+                {/* <Route path="/*" element={<Main />} /> */}
                 <Route
                     path="/staff_verification"
                     element={<StaffVerification />}

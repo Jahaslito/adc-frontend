@@ -58,11 +58,7 @@ const Dashboard = () => {
             path: "me",
             icon: <AiOutlineFileText size={70} color={colors.primary} />,
         },
-        {
-            label: "Patient Visits",
-            path: "patientvisits",
-            icon: <MdHistoryToggleOff size={70} color={colors.primary} />,
-        },
+
         {
             label: "Research",
             path: "research",
@@ -76,7 +72,7 @@ const Dashboard = () => {
                 <Input placeholder="Search modules" styles_="text-sm" noLabel />
             </div>
             {/* List of modules */}
-            <div className="p-4 flex flex-row gap-y-6 gap-x-20 flex-wrap content-center">
+            <div className="p-4 grid grid-flow-row grid-cols-3 gap-x-20 gap-y-10 m-auto">
                 {modules.map((module, index) => (
                     <Link to={module.path} key={index}>
                         <CardButton label={module.label} icon={module.icon} />
