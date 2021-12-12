@@ -38,14 +38,10 @@ const Dashboard = () => {
             path: "appoint",
             icon: <IoCalendarOutline size={70} color={colors.primary} />,
         },
+
         {
-            label: "Laboratory Results",
-            path: "results",
-            icon: <BsClipboardCheck size={70} color={colors.primary} />,
-        },
-        {
-            label: "Laboratory Result Types",
-            path: "resultTypes",
+            label: "Laboratory",
+            path: "lab",
             icon: <ImLab size={70} color={colors.primary} />,
         },
         {

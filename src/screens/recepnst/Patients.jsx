@@ -1,14 +1,14 @@
 import React, { useState, useContext, useEffect } from "react";
-import { AppContext } from "../util/AppContext";
-import Button from "../components/Button";
-import Input from "../components/Input";
-import Table from "../components/Table";
+import { AppContext } from "../../util/AppContext";
+import Button from "../../components/Button";
+import Input from "../../components/Input";
+import Table from "../../components/Table";
 import { AiOutlineUserAdd } from "react-icons/ai";
-import { colors } from "../assets/colors/colors";
+import { colors } from "../../assets/colors/colors";
 import { IoCloseOutline } from "react-icons/io5";
-import Modal from "../components/Modal";
+import Modal from "../../components/Modal";
 import { MdSave } from "react-icons/md";
-import { Api } from "../util/Api";
+import { Api } from "../../util/Api";
 
 const Patients = () => {
     const { setLoaderHidden } = useContext(AppContext);
@@ -49,18 +49,11 @@ const Patients = () => {
             "Ole Sangale Road, Siwaka",
         ],
     ];
+    const links = ["5", "6", "7", "8"];
 
     return (
         <>
             <div className="w-full text-gray-600 flex flex-col">
-                <div className="flex flex-row items-center justify-between px-3 pb-3 border-b">
-                    <span className="text-lg font-light">Patients</span>
-                    <Input
-                        placeholder="Search patients"
-                        styles_="text-sm"
-                        noLabel
-                    />
-                </div>
                 <div className="mt-6 flex flex-col gap-3">
                     <div className="flex flex-row-reverse mb-3">
                         <Button
@@ -74,7 +67,7 @@ const Patients = () => {
                             onClick={() => setModalHidden(false)}
                         />
                     </div>
-                    <Table cols={cols} rows={rows} />
+                    <Table cols={cols} rows={rows} hasLinks links={links} />
                 </div>
             </div>
             <Modal hidden={modalHidden}>
