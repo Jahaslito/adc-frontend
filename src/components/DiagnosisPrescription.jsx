@@ -45,8 +45,8 @@ const DiagnosisPrescription = () => {
                 </div>
                 <div className="grid grid-cols-2 gap-2">
                     {records.map((record, key) => (
-                        <div>
-                            <AccordionItem label={record.label} key={key}>
+                        <div key={key}>
+                            <AccordionItem label={record.label}>
                                 <div className="flex flex-col gap-2 p-2 text-xs font-medium">
                                     <span className="text-sm mb-2">
                                         Diagnosis

@@ -107,7 +107,7 @@ const StaffRegistration = () => {
             .then((resp) => {
                 console.log(resp.data);
                 if (resp.data.success) {
-                    navigate("/login");
+                    navigate("/staff/login");
                 }
             })
             .catch((err) => {

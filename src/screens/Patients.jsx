@@ -10,6 +10,7 @@ import Modal from "../../components/Modal";
 import { MdSave } from "react-icons/md";
 import { Api } from "../../util/Api";
 
+//{ cols, rows, getFunc, se }
 const Patients = () => {
     const { setLoaderHidden, setAlerts, user } = useContext(AppContext);
     const [modalHidden, setModalHidden] = useState(true);

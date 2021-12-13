@@ -45,12 +45,12 @@ const Main = () => {
                         <Route path="/*" element={<Dashboard />} />
                         <Route path="doctor/*" element={<Doctor />} />
                         <Route path="vitals/*" element={<VitalSigns />} />
-                        <Route path="me" element={<Patient />} />
+                        <Route path={`me:id`} element={<Patient />} />
                         <Route path="appoint/*" element={<Appointments />} />
                         <Route path="patients/*" element={<Receptionist />} />
                         <Route path="appoint" element={<Appointments />} />
                         <Route path="research" element={<Research />} />
-                        <Route path="lab" element={<Lab />} />
+                        <Route path="lab/*" element={<Lab />} />
                     </Routes>
                 </div>
                 <Footer />

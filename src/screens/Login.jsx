@@ -168,8 +168,14 @@ const Login = () => {
                 if (resp.data.success) {
                     storeSession({
                         id: user.id,
-                        firstName: user.first_name,
-                        lastName: user.last_name,
+                        firstName:
+                            role === "Doctor"
+                                ? user.doctor_first_name
+                                : user.first_name,
+                        lastName:
+                            role === "Doctor"
+                                ? user.doctor_last_name
+                                : user.last_name,
                         email: user.email,
                         token: token,
                         phone: user.phone_number,

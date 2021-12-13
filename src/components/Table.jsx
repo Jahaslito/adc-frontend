@@ -24,9 +24,12 @@ const Table = ({ cols, rows, noHeading, hasLinks }) => {
                     {rows.map((row, index) => (
                         <tr
                             key={index}
-                            className={`relative ${
+                            className={`relative cursor-pointer ${
                                 index % 2 === 0 ? "bg-gray-100" : ""
                             }`}
+                            onClick={() => {
+                                row.rowClick && row.rowClick();
+                            }}
                         >
                             {row?.data?.map((cell, index) => (
                                 <td key={index} className="p-3">

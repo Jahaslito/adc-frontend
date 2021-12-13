@@ -1,9 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import CardButton from "../components/CardButton";
-import Navbar from "../components/Navbar";
 import { AiOutlineUsergroupAdd } from "react-icons/ai";
 import { FaHeartbeat } from "react-icons/fa";
-import { MdOutlineLocalPharmacy } from "react-icons/md";
 import { GiStethoscope } from "react-icons/gi";
 import { IoCalendarOutline } from "react-icons/io5";
 import { ImLab } from "react-icons/im";
@@ -13,10 +11,10 @@ import Input from "../components/Input";
 import { BsCameraVideo } from "react-icons/bs";
 import { AiOutlineFileText } from "react-icons/ai";
 import { IoSearchOutline } from "react-icons/io5";
-import { MdHistoryToggleOff } from "react-icons/md";
-import { BsClipboardCheck } from "react-icons/bs";
+import { AppContext } from "../util/AppContext";
 
 const Dashboard = () => {
+    const { user } = useContext(AppContext);
     const [modules, setModules] = useState([
         {
             label: "Patients",
@@ -51,7 +49,7 @@ const Dashboard = () => {
         },
         {
             label: "Medical Records",
-            path: "me",
+            path: `me${user.id}`,
             icon: <AiOutlineFileText size={70} color={colors.primary} />,
         },
 

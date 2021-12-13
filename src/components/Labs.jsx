@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import Table from "./Table";
 import { IoAdd } from "react-icons/io5";
 import Modal from "./Modal";
@@ -10,6 +10,8 @@ import { AppContext } from "../util/AppContext";
 import TextArea from "./TextArea";
 import { useParams } from "react-router-dom";
 import { Api } from "../util/Api";
+import parseISO from "date-fns/parseISO";
+import format from "date-fns/format";
 
 const Labs = ({ rows }) => {
     const { user, setLoaderHidden, setAlerts } = useContext(AppContext);
@@ -19,6 +21,15 @@ const Labs = ({ rows }) => {
         "Get the number of full years between the given dates."
     );
     const cols = ["Lab type", "Status", "Results", "Datetime"];
+    const [labRequests, setLabRequests] = useState([]);
+    const [labResults, setLabResults] = useState([]);
+    const colsForReq = ["Patient", "Doctor", "Description", "Date Time"];
+    const colsForRes = ["Patient", "Test type", "Results"];
+
+    useEffect(() => {
+        getRequests();
+        getResults();
+    }, []);
     return (
         <>
             <div className="flex flex-col p-2">
@@ -29,12 +40,28 @@ const Labs = ({ rows }) => {
                     <IconButton
                         icon={<IoAdd size={20} />}
                         style_={`text-primary ${
-                            user.role !== "Patient" && "hidden"
+                            user.role !== "Doctor" && "hidden"
                         }`}
                         onClick={() => setModalHidden(false)}
                     />
                 </div>
-                <Table cols={cols} rows={rows} />
+                <span className="text-sm font-medium mb-4">
+                    Pending Lab requests
+                </span>
+                <Table rows={labRequests} cols={colsForReq} />
+                {labRequests.length === 0 && (
+                    <span className="mt-2 text-xs font-medium text-gray-400">
+                        Nothing to show :(
+                    </span>
+                )}
+
+                <span className="text-sm font-medium my-4">Labs done</span>
+                <Table rows={labResults} cols={colsForRes} />
+                {labResults.length === 0 && (
+                    <span className="mt-2 text-xs font-medium text-gray-400">
+                        Nothing to show :(
+                    </span>
+                )}
             </div>
             <Modal hidden={modalHidden}>
                 <div className="flex flex-col bg-white rounded-lg shadow-2xl">
@@ -71,6 +98,71 @@ const Labs = ({ rows }) => {
             </Modal>
         </>
     );
+
+    function getRequests() {
+        setLoaderHidden(false);
+        const config = {
+            headers: { Authorization: `Bearer ${user.token}` },
+        };
+
+        Api.get(`fetch_patient_lab_request/${id}`, config)
+            .then((resp) => {
+                console.log(resp.data);
+                const requests = [];
+                resp.data.data.forEach((elem) => {
+                    const req = {
+                        data: [
+                            `${elem.first_name} ${elem.last_name}`,
+                            `${elem.doctor_first_name} ${elem.doctor_last_name}`,
+                            elem.description,
+                            format(
+                                parseISO(elem.created_at),
+                                "dd-MM-yyyy hh:mm:ss aaa"
+                            ),
+                        ],
+                    };
+                    requests.push(req);
+                });
+                setLabRequests(requests);
+            })
+            .catch((err) => {
+                console.log(err.response.data);
+            })
+            .finally(() => {
+                setLoaderHidden(true);
+            });
+    }
+
+    function getResults() {
+        setLoaderHidden(false);
+
+        const config = {
+            headers: { Authorization: `Bearer ${user.token}` },
+        };
+
+        Api.get(`fetch_all_results/${id}`, config)
+            .then((resp) => {
+                console.log(resp.data);
+                const results = [];
+                resp.data.data.forEach((elem) => {
+                    const result = {
+                        data: [
+                            `${elem.first_name} ${elem.last_name}`,
+                            elem.test_type,
+                            `${elem.lab_result_name} ${elem.unit}`,
+                        ],
+                    };
+                    results.push(result);
+                });
+                setLabResults(results);
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+            .finally(() => {
+                setLoaderHidden(true);
+            });
+    }
 
     function requestLab() {
         setModalHidden(true);

@@ -22,9 +22,9 @@ const Alert = ({ label, theme, hidden, setHidden, timeout, extra }) => {
             } ${visibility}`}
         >
             <div className={`w-1 bg-${theme} rounded-l-sm`}></div>
-            <div>
+            <div className="flex-grow">
                 <div
-                    className={`flex flex-row justify-between items-center flex-grow p-3 rounded-r-sm text-${theme}`}
+                    className={`flex flex-row justify-between items-center p-3 rounded-r-sm text-${theme}`}
                 >
                     <span>{label}</span>
 

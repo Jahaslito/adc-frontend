@@ -45,8 +45,8 @@ const VitalSigns = () => {
 
                 <div className="grid grid-cols-2 gap-2">
                     {vitals.map((vital, key) => (
-                        <div>
-                            <AccordionItem label={vital.label} key={key}>
+                        <div key={key}>
+                            <AccordionItem label={vital.label}>
                                 <VitalSignsTable vitals={vital.data} />
                             </AccordionItem>
                         </div>
