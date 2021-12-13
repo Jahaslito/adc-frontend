@@ -1,16 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { AppContext } from "../util/AppContext";
 import Button from "../components/Button";
 import { RiUploadCloud2Line } from "react-icons/ri";
 import { colors } from "../assets/colors/colors";
-import { FileUploader } from "react-drag-drop-files";
 import { IoCloseOutline } from "react-icons/io5";
+import Input from "../components/Input";
 import { IoMdImages } from "react-icons/io";
+import { Api } from "../util/Api";
 
 const Research = () => {
+    const { setLoaderHidden, setAlerts } = useContext(AppContext);
     const [images, setImages] = useState([]);
     const [imgUrls, setImgUrls] = useState([]);
     const [uploadBtnVisible, setUploadBtnVisible] = useState(false);
-
+    const [desc, setDesc] = useState("");
     useEffect(() => {
         if (images.length < 1) return;
         const newImgUrls = [];
@@ -76,26 +79,20 @@ const Research = () => {
                     <input
                         type="file"
                         className="hidden"
-                        multiple
                         accept="image/*"
                         onChange={onImageChange}
                     />
+                    <span className={`mt-2 ${!uploadBtnVisible && "hidden"}`}>
+                        <Input
+                            label="Describe it"
+                            type="text"
+                            placeholder="Description"
+                            value={desc}
+                            onChange={(event) => setDesc(event.target.value)}
+                            required
+                        />
+                    </span>
                 </label>
-
-                {/* <FileUploader
-                    handleChange={handleChange}
-                    name="file"
-                    types={fileTypes}
-                    classes={`w-full ${uploadBtnVisible && "hidden invisible"}`}
-                />
-
-                {imgUrl && (
-                    <img
-                        src={imgUrl}
-                        alt="upload"
-                        className="w-8/12 border shadow-sm p-2"
-                    />
-                )} */}
 
                 <div
                     className={`p-4 flex flex-row justify-between w-8/12 ${
@@ -110,6 +107,7 @@ const Research = () => {
                                 color={colors.primary}
                             />
                         }
+                        onClick={upload}
                     />
                     <Button
                         label="Cancel"
@@ -127,6 +125,36 @@ const Research = () => {
             </div>
         </div>
     );
+
+    function upload() {
+        setLoaderHidden(false);
+        const params = new FormData();
+        params.append("name", desc);
+        params.append("image", images[0]);
+
+        Api.post(`research_images`, params)
+            .then((resp) => {
+                console.log(resp.data);
+                setImages([]);
+                setImgUrls([]);
+                setDesc("");
+                setUploadBtnVisible(false);
+                setAlerts([]);
+                setAlerts([
+                    {
+                        message: "Image uploaded successfully",
+                        theme: "primary",
+                        timeout: 3,
+                    },
+                ]);
+            })
+            .catch((err) => {
+                console.log(err.response.data);
+            })
+            .finally(() => {
+                setLoaderHidden(true);
+            });
+    }
 };
 
 export default Research;
