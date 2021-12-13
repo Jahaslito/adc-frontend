@@ -46,13 +46,15 @@ const BioData = ({ setPName }) => {
                     <span className="text-sm font-medium text-gray-600">
                         Bio
                     </span>
-                    <IconButton
-                        icon={<MdEdit size={18} />}
-                        style_={`text-primary ${
-                            user.role !== "Patient" && "hidden"
-                        }`}
-                        onClick={() => setModalHidden(false)}
-                    />
+                    {user.role === "Receptionist" && (
+                        <IconButton
+                            icon={<MdEdit size={18} />}
+                            style_={`text-primary ${
+                                user.role !== "Patient" && "hidden"
+                            }`}
+                            onClick={() => setModalHidden(false)}
+                        />
+                    )}
                 </div>
                 <BioTable bioData={bioData} />
             </div>

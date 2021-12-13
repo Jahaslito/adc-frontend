@@ -36,11 +36,13 @@ const VitalSigns = () => {
                     <span className="text-sm font-medium text-gray-600">
                         Vital Signs
                     </span>
-                    <IconButton
-                        icon={<IoAdd size={20} />}
-                        style_="text-primary"
-                        onClick={() => setModalHidden(false)}
-                    />
+                    {user.role === "Nurse" && (
+                        <IconButton
+                            icon={<IoAdd size={20} />}
+                            style_="text-primary"
+                            onClick={() => setModalHidden(false)}
+                        />
+                    )}
                 </div>
 
                 <div className="grid grid-cols-2 gap-2">

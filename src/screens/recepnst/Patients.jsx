@@ -52,16 +52,18 @@ const Patients = () => {
                             }
                             noLabel
                         />
-                        <Button
-                            label="New patient"
-                            icon={
-                                <AiOutlineUserAdd
-                                    size={20}
-                                    color={colors.primary}
-                                />
-                            }
-                            onClick={() => setModalHidden(false)}
-                        />
+                        {user.role === "Receptionist" && (
+                            <Button
+                                label="New patient"
+                                icon={
+                                    <AiOutlineUserAdd
+                                        size={20}
+                                        color={colors.primary}
+                                    />
+                                }
+                                onClick={() => setModalHidden(false)}
+                            />
+                        )}
                     </div>
                     <Table cols={cols} rows={rows} hasLinks />
                 </div>

@@ -39,8 +39,7 @@ const Patient = () => {
                         <BsPerson size={22} />
                         <span className="text-lg font-light">{pName}</span>
                     </div>
-                    {(user.role === "Doctor" ||
-                        user.role === "Receptionist") && (
+                    {user.role === "Receptionist" && (
                         <div className="flex flex-row gap-2 items-center">
                             <Button
                                 label="Add to queue"
@@ -76,11 +75,6 @@ const Patient = () => {
                     </div>
 
                     <div className="grid grid-cols-2 gap-10 p-6">
-                        {/* 'patient_id' => 'required',
-	        'date_of_app' => 'required|date',
-	        'time_of_app' => 'required',
-	        'doctor_id' => 'required',
-	        'receptionist_id' => 'required', */}
                         <Input
                             label="Select date"
                             type="date"

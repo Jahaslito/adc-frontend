@@ -37,13 +37,15 @@ const Labs = ({ rows }) => {
                     <span className="text-sm font-medium text-gray-600">
                         Lab tests
                     </span>
-                    <IconButton
-                        icon={<IoAdd size={20} />}
-                        style_={`text-primary ${
-                            user.role !== "Doctor" && "hidden"
-                        }`}
-                        onClick={() => setModalHidden(false)}
-                    />
+                    {user.role === "Doctor" && (
+                        <IconButton
+                            icon={<IoAdd size={20} />}
+                            style_={`text-primary ${
+                                user.role !== "Doctor" && "hidden"
+                            }`}
+                            onClick={() => setModalHidden(false)}
+                        />
+                    )}
                 </div>
                 <span className="text-sm font-medium mb-4">
                     Pending Lab requests

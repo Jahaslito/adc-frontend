@@ -19,43 +19,51 @@ const Dashboard = () => {
         {
             label: "Patients",
             path: "patients",
+            roles: ["Receptionist", "Doctor", "Nurse"],
             icon: <AiOutlineUsergroupAdd size={70} color={colors.primary} />,
         },
         {
             label: "Vital Signs",
             path: "vitals",
+            roles: ["Nurse"],
             icon: <FaHeartbeat size={70} color={colors.primary} />,
         },
         {
             label: "Doctor",
             path: "doctor",
+            roles: ["Doctor"],
             icon: <GiStethoscope size={70} color={colors.primary} />,
         },
         {
             label: "Appointments",
             path: "appoint",
+            roles: ["Nurse", "Doctor", "Patient"],
             icon: <IoCalendarOutline size={70} color={colors.primary} />,
         },
 
         {
             label: "Laboratory",
             path: "lab",
+            roles: ["Lab technician"],
             icon: <ImLab size={70} color={colors.primary} />,
         },
         {
             label: "Virtual Consultation",
             path: "vconsul",
+            roles: ["Receptionist", "Doctor", "Nurse"],
             icon: <BsCameraVideo size={70} color={colors.primary} />,
         },
         {
             label: "Medical Records",
             path: `me${user.id}`,
+            roles: ["Patient"],
             icon: <AiOutlineFileText size={70} color={colors.primary} />,
         },
 
         {
             label: "Research",
             path: "research",
+            roles: ["Receptionist", "Doctor", "Nurse", "Lab technician"],
             icon: <IoSearchOutline size={70} color={colors.primary} />,
         },
     ]);
@@ -63,15 +71,23 @@ const Dashboard = () => {
         <div className="w-full text-gray-600 flex flex-col">
             <div className="flex flex-row justify-between items-center px-3 pb-2 border-b">
                 <span className="text-lg font-light">Modules</span>
-                <Input placeholder="Search modules" styles_="text-sm" noLabel />
             </div>
             {/* List of modules */}
             <div className="p-4 grid grid-flow-row grid-cols-3 gap-x-20 gap-y-10 m-auto">
-                {modules.map((module, index) => (
-                    <Link to={module.path} key={index}>
-                        <CardButton label={module.label} icon={module.icon} />
-                    </Link>
-                ))}
+                {modules.map((module, index) => {
+                    // module.roles.find(user.role)
+                    if (module.roles.find((elem) => elem === user.role)) {
+                        return (
+                            <Link to={module.path} key={index}>
+                                <CardButton
+                                    label={module.label}
+                                    icon={module.icon}
+                                />
+                            </Link>
+                        );
+                    }
+                    return null;
+                })}
             </div>
         </div>
     );
