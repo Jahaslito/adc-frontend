@@ -11,6 +11,9 @@ import { AppContext } from "../util/AppContext";
 import Input from "./Input";
 import { Api } from "../util/Api";
 import { useParams } from "react-router-dom";
+import AccordionItem from "./AccordionItem";
+import parseISO from "date-fns/parseISO";
+import format from "date-fns/format";
 
 const DiagnosisPrescription = () => {
     const { id } = useParams();
@@ -22,6 +25,11 @@ const DiagnosisPrescription = () => {
     const [medication, setMedication] = useState("Asprin");
     const [quantity, setQuantity] = useState(3);
     const [dosage, setDosage] = useState("tablets 3 times a day");
+    const [records, setRecords] = useState([]);
+
+    useEffect(() => {
+        getRecords();
+    }, []);
     return (
         <>
             <div className=" p-4 flex flex-col">
@@ -35,6 +43,29 @@ const DiagnosisPrescription = () => {
                         onClick={() => setModalHidden(false)}
                     />
                 </div>
+                <div className="grid grid-cols-2 gap-2">
+                    {records.map((record, key) => (
+                        <div>
+                            <AccordionItem label={record.label} key={key}>
+                                <div className="flex flex-col gap-2 p-2 text-xs font-medium">
+                                    <span className="text-sm mb-2">
+                                        Diagnosis
+                                    </span>
+                                    <div>{record.diagnosis}</div>
+                                    <span className="text-sm mb-2">
+                                        Prescription
+                                    </span>
+                                    <div>{`${record.name} ${record.quantity} ${record.dosage}`}</div>
+                                </div>
+                            </AccordionItem>
+                        </div>
+                    ))}
+                </div>
+                {records.length === 0 && (
+                    <span className="text-xs font-medium text-gray-400">
+                        Nothing to show :(
+                    </span>
+                )}
             </div>
 
             <Modal hidden={modalHidden}>
@@ -113,21 +144,82 @@ const DiagnosisPrescription = () => {
         </>
     );
 
-    function getRecords() {}
-
-    function save() {
-        setModalHidden(true);
-        const params = new FormData();
-        params.append("name", medication);
-        params.append("quantity", quantity);
-        params.append("dosage", dosage);
+    function getRecords() {
+        setLoaderHidden(false);
 
         const config = {
             headers: {
                 Authorization: `Bearer ${user.token}`,
             },
         };
+
+        Api.post(`fetch_presc_diag/${id}`, {}, config)
+            .then((resp) => {
+                console.log(resp.data);
+                const records_ = [];
+                resp.data.data.forEach((elem) => {
+                    const record = {
+                        label: format(
+                            parseISO(elem.updated_at),
+                            "dd-MM-yyyy hh:mm:ss aaa"
+                        ),
+                        name: elem.name,
+                        diagnosis: elem.diagnosis,
+                        quantity: elem.quantity,
+                        dosage: elem.dosage,
+                    };
+                    records_.push(record);
+                });
+                setRecords(records_);
+            })
+            .catch((err) => {
+                console.log(err.response.data);
+            })
+            .finally(() => {
+                setLoaderHidden(true);
+            });
+    }
+
+    function save() {
+        setModalHidden(true);
+
+        const params = new FormData();
+        params.append("staff_id", user.id);
+        params.append("patient_id", id);
+        params.append("diagnosis", diagnosis);
+
+        const config = {
+            headers: {
+                Authorization: `Bearer ${user.token}`,
+            },
+        };
+
         setLoaderHidden(false);
+
+        Api.post("diagnosis", params, config)
+            .then((resp) => {
+                console.log(resp.data);
+                savePrescription(resp.data.data.diagnosis_id);
+            })
+            .catch((err) => {
+                console.log(err.response.data);
+                setLoaderHidden(true);
+            });
+
+        setLoaderHidden(false);
+    }
+
+    function savePrescription(diagnosisId) {
+        const params = new FormData();
+        params.append("name", medication);
+        params.append("quantity", quantity);
+        params.append("dosage", dosage);
+        params.append("diagnosis_id", diagnosisId);
+        const config = {
+            headers: {
+                Authorization: `Bearer ${user.token}`,
+            },
+        };
         Api.post("insert_prescription", params, config)
             .then((resp) => {
                 console.log(resp.data);
@@ -139,6 +231,7 @@ const DiagnosisPrescription = () => {
                         timeout: 3,
                     },
                 ]);
+                getRecords();
             })
             .catch((err) => {
                 console.log(err.response.data);

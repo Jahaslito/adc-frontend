@@ -43,11 +43,15 @@ const VitalSigns = () => {
                     />
                 </div>
 
-                {vitals.map((vital, key) => (
-                    <AccordionItem label={vital.label} key={key}>
-                        <VitalSignsTable vitals={vital.data} />
-                    </AccordionItem>
-                ))}
+                <div className="grid grid-cols-2 gap-2">
+                    {vitals.map((vital, key) => (
+                        <div>
+                            <AccordionItem label={vital.label} key={key}>
+                                <VitalSignsTable vitals={vital.data} />
+                            </AccordionItem>
+                        </div>
+                    ))}
+                </div>
                 {vitals.length === 0 && (
                     <span className="text-xs font-medium text-gray-400">
                         Nothing to show :(
@@ -153,7 +157,10 @@ const VitalSigns = () => {
                 const vitals_ = [];
                 resp.data.data.forEach((elem) => {
                     const vital = {
-                        label: format(parseISO(elem.updated_at), "dd-MM-yyyy"),
+                        label: format(
+                            parseISO(elem.updated_at),
+                            "dd-MM-yyyy hh:mm:ss aaa"
+                        ),
                         data: {
                             temperature: elem.temperature,
                             pulseRate: elem.pulse_rate,
