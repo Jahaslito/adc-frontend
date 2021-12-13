@@ -66,15 +66,13 @@ const Calendar = () => {
         const __days = [];
         for (let index = 0; index < getDaysInMonth(date); index++) {
             __days.push(
-                <div className="flex flex-col justify-start items-center pt-2 font-medium w-full h-32 border hover:bg-gray-50 rounded-sm shadow-sm">
+                <div className="flex flex-col justify-start items-center pt-2 font-medium w-full h-24 border hover:bg-gray-50 rounded-sm shadow-sm">
                     <span className="border text-primary font-medium rounded-full w-6 h-6 flex justify-center items-center">
                         <span>{index + 1}</span>
                     </span>
 
                     <div className="flex-grow flex justify-center items-center">
-                        <span className="text-3xl font-extralight tracking-wider">
-                            10
-                        </span>
+                        <span className="text-3xl font-extralight">10</span>
                     </div>
                 </div>
             );

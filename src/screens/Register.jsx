@@ -235,6 +235,7 @@ const Register = () => {
                 const { token, user } = resp.data.data;
 
                 storeSession({
+                    id: user.id,
                     firstName: user.first_name,
                     lastName: user.last_name,
                     email: user.email,

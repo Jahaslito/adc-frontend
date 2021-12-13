@@ -106,6 +106,7 @@ const Login = () => {
                 const { token, user } = resp.data.data;
                 if (resp.data.success) {
                     storeSession({
+                        id: user.id,
                         firstName: user.first_name,
                         lastName: user.last_name,
                         email: user.email,

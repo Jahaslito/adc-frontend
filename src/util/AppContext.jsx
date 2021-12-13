@@ -5,6 +5,7 @@ export const AppContext = createContext();
 export const AppContextProvider = ({ children }) => {
     const [user, setUser] = useState(getUser);
     const [loaderHidden, setLoaderHidden] = useState(true);
+    const [alerts, setAlerts] = useState([]);
 
     //functions
     function storeSession(user) {
@@ -24,6 +25,8 @@ export const AppContextProvider = ({ children }) => {
         deleteSession,
         loaderHidden,
         setLoaderHidden,
+        alerts,
+        setAlerts,
     };
 
     return (

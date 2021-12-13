@@ -8,17 +8,34 @@ import Doctor from "./doctor/Doctor";
 import Patient from "./Patient";
 import Research from "./Research";
 import Appointments from "./Appointments";
-import VitalSigns from "./nurse/VitalSigns";
+import VitalSigns from "./nurse/Nurse";
 import Lab from "./Lab";
 import PageWideSpinner from "../components/PageWideSpinner";
 import { AppContext } from "../util/AppContext";
 import Receptionist from "./recepnst/Receptionist";
+import Alert from "../components/Alert";
 
 const Main = () => {
-    const { loaderHidden } = useContext(AppContext);
+    const { loaderHidden, alerts } = useContext(AppContext);
     return (
         <>
             <PageWideSpinner hidden={loaderHidden} />
+            <div
+                className="fixed left-1 w-56 h-screen flex flex-col gap-2 py-1 px-2"
+                style={{ top: 124 }}
+            >
+                {alerts.map((alert, key) => {
+                    return (
+                        <Alert
+                            key={key}
+                            label={alert.message}
+                            theme={alert?.theme}
+                            timeout={alert.timeout}
+                            extra={alert.extra}
+                        />
+                    );
+                })}
+            </div>
             <div className="w-full flex flex-col items-center p-3 bg-gray-100">
                 <Navbar />
                 <BreadCrumbs />

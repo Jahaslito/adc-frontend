@@ -1,70 +1,60 @@
 import React, { useState, useContext, useEffect } from "react";
-import { AppContext } from "../../util/AppContext";
-import Button from "../../components/Button";
-import Input from "../../components/Input";
-import Table from "../../components/Table";
-import { AiOutlineUserAdd } from "react-icons/ai";
-import { colors } from "../../assets/colors/colors";
+import BioTable from "./noreuse/BioTable";
+import { MdEdit } from "react-icons/md";
+import Modal from "./Modal";
+import IconButton from "./IconButton";
 import { IoCloseOutline } from "react-icons/io5";
-import Modal from "../../components/Modal";
+import Button from "./Button";
 import { MdSave } from "react-icons/md";
-import { Api } from "../../util/Api";
+import { colors } from "../assets/colors/colors";
+import Input from "./Input";
+import { AppContext } from "../util/AppContext";
+import { useParams } from "react-router-dom";
+import { Api } from "../util/Api";
+import differenceInYears from "date-fns/differenceInYears";
+import parseISO from "date-fns/parseISO";
+import { format } from "date-fns";
 
-const Patients = () => {
-    const { setLoaderHidden, setAlerts, user } = useContext(AppContext);
+const BioData = ({ setPName }) => {
+    const { user, setLoaderHidden, setAlerts } = useContext(AppContext);
+    const { id } = useParams();
+    const [bioData, setBioData] = useState({});
     const [modalHidden, setModalHidden] = useState(true);
-    const cols = ["Name", "Gender", "Phone", "Email", "Address"];
-    const [rows, setRows] = useState([]);
+    const [userData, setUserData] = useState({});
 
+    //patient
     //new patient
-    const [firstName, setFirstName] = useState("Tony");
-    const [lastName, setLastName] = useState("Mogoa");
-    const [email, setEmail] = useState(
-        `tony.mogoa${Math.floor(Math.random() * 1000)}@strathmore.edu`
-    );
-    const [phone, setPhone] = useState("0708502805");
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
+    const [email, setEmail] = useState("");
+    const [phone, setPhone] = useState("");
     const [gender, setGender] = useState("");
-    const [password, setPassword] = useState("password");
-    const [confmPassword, setConfmPassword] = useState("password");
-    const [valdErr, setValdErr] = useState("");
-    const [addresss, setAddresss] = useState("Ole Sangale");
-    const [town, setTown] = useState("Siwaka");
-    const [dateOfBirth, setDateOfBirth] = useState("2001-12-12");
-
-    const [search, setSearch] = useState("");
-    const [timeoutId, setTimeoutId] = useState(null);
+    // const [password, setPassword] = useState("password");
+    // const [confmPassword, setConfmPassword] = useState("password");
+    // const [valdErr, setValdErr] = useState("");
+    const [addresss, setAddresss] = useState("");
+    const [town, setTown] = useState("");
+    const [dateOfBirth, setDateOfBirth] = useState("");
 
     useEffect(() => {
-        getPatients();
+        getBio();
     }, []);
-
     return (
         <>
-            <div className="w-full text-gray-600 flex flex-col">
-                <div className="mt-2 flex flex-col gap-3">
-                    <div className="flex flex-row items-center justify-between mb-3">
-                        <Input
-                            placeholder="Search by phone number"
-                            styles_="text-sm"
-                            value={search}
-                            onChange={(event) =>
-                                handleSearch(event.target.value)
-                            }
-                            noLabel
-                        />
-                        <Button
-                            label="New patient"
-                            icon={
-                                <AiOutlineUserAdd
-                                    size={20}
-                                    color={colors.primary}
-                                />
-                            }
-                            onClick={() => setModalHidden(false)}
-                        />
-                    </div>
-                    <Table cols={cols} rows={rows} hasLinks />
+            <div className="flex flex-col p-2">
+                <div className="flex flex-row gap-2 items-center border-b pb-1 mb-2">
+                    <span className="text-sm font-medium text-gray-600">
+                        Bio
+                    </span>
+                    <IconButton
+                        icon={<MdEdit size={18} />}
+                        style_={`text-primary ${
+                            user.role !== "Patient" && "hidden"
+                        }`}
+                        onClick={() => setModalHidden(false)}
+                    />
                 </div>
+                <BioTable bioData={bioData} />
             </div>
             <Modal hidden={modalHidden}>
                 <div className="flex flex-col bg-white rounded-lg shadow-2xl">
@@ -220,7 +210,7 @@ const Patients = () => {
                     <div className="flex flex-row-reverse p-2">
                         <Button
                             label="Save"
-                            onClick={handleRegister}
+                            onClick={save}
                             icon={<MdSave size={20} color={colors.primary} />}
                         />
                     </div>
@@ -228,130 +218,36 @@ const Patients = () => {
             </Modal>
         </>
     );
-    function handleSearch(search) {
-        setSearch(search);
-        if (search === "") {
-            timeoutId && clearTimeout(timeoutId);
-            getPatients();
-            return;
-        }
 
-        if (timeoutId) {
-            clearTimeout(timeoutId);
-        }
-        const newTimeoutId = setTimeout(() => {
-            getSearchResults();
-        }, 500);
-
-        setTimeoutId(newTimeoutId);
-    }
-
-    function getSearchResults() {
-        const params = new FormData();
-        params.append("phone_number", search);
-        const config = {
-            headers: { Authorization: `Bearer ${user.token}` },
-        };
-
-        setLoaderHidden(false);
-        Api.post("search_patient", params, config)
-            .then((resp) => {
-                console.log(resp.data);
-                if (resp.data.success) {
-                    const rows_ = [];
-                    resp.data.data.forEach((elem) => {
-                        const row = {
-                            link: `${elem.id}`,
-                            data: [
-                                `${elem.first_name} ${elem.last_name}`,
-                                elem.gender,
-                                elem.phone_number,
-                                elem.email,
-                                `${elem.address}, ${elem.town}`,
-                            ],
-                        };
-                        rows_.push(row);
-                    });
-                    setRows(rows_);
-                }
-            })
-            .catch((err) => {
-                console.log(err.response.data);
-                if (!err.response.data.success) setRows([]);
-            })
-            .finally(() => {
-                setLoaderHidden(true);
-            });
-    }
-
-    function handleRegister() {
-        register();
-    }
-
-    function register() {
+    function save() {
         const params = new FormData();
         params.append("first_name", firstName);
         params.append("last_name", lastName);
         params.append("email", email);
         params.append("phone_number", phone);
-        params.append("password", password);
-        params.append("password_confirmation", confmPassword);
         params.append("address", addresss);
         params.append("town", town);
         params.append("gender", gender);
         params.append("date_of_birth", dateOfBirth);
 
-        setLoaderHidden(false);
-        Api.post("register", params)
-            .then((resp) => {
-                console.log(resp.data);
-                setAlerts([]);
-                if (resp.data.success) {
-                    setAlerts([
-                        {
-                            message: "Patient registered successfully",
-                            theme: "primary",
-                            timeout: 15,
-                            extra: (
-                                <div className="p-2">
-                                    <Button
-                                        label="Add to queue"
-                                        onClick={() =>
-                                            queue(resp.data.data.user.id)
-                                        }
-                                    />
-                                </div>
-                            ),
-                        },
-                    ]);
-                }
-            })
-            .catch((err) => console.log(err.response.data))
-            .finally(() => {
-                setLoaderHidden(true);
-                setModalHidden(true);
-            });
-    }
-
-    function queue(id) {
-        const params = new FormData();
-        params.append("patient_id", id);
-        console.log(id);
         const config = {
             headers: { Authorization: `Bearer ${user.token}` },
         };
-        setLoaderHidden(false);
 
-        Api.post("insert_patient_visit", params, config)
+        setLoaderHidden(false);
+        Api.post(`update_patient/${id}`, params, config)
             .then((resp) => {
                 console.log(resp.data);
+                setAlerts([]);
+
                 setAlerts([
                     {
-                        message: "Patient queued successfully",
+                        message: "Patient updated successfully",
                         theme: "primary",
                         timeout: 3,
                     },
                 ]);
+                getBio();
             })
             .catch((err) => console.log(err.response.data))
             .finally(() => {
@@ -360,28 +256,36 @@ const Patients = () => {
             });
     }
 
-    function getPatients() {
+    function getBio() {
+        const params = new FormData();
+        params.append("id", id);
         setLoaderHidden(false);
-        Api.get("patients")
+
+        Api.post("patient", params)
             .then((resp) => {
                 console.log(resp.data);
-                if (resp.data.success) {
-                    const rows_ = [];
-                    resp.data.data.forEach((elem) => {
-                        const row = {
-                            link: `${elem.id}`,
-                            data: [
-                                `${elem.first_name} ${elem.last_name}`,
-                                elem.gender,
-                                elem.phone_number,
-                                elem.email,
-                                `${elem.address}, ${elem.town}`,
-                            ],
-                        };
-                        rows_.push(row);
-                    });
-                    setRows(rows_);
-                }
+                const { data } = resp.data;
+                setUserData(data[0]);
+                setFirstName(data[0].first_name);
+                setLastName(data[0].last_name);
+                setEmail(data[0].email);
+                setDateOfBirth(
+                    format(parseISO(data[0].date_of_birth), "yyyy-MM-dd")
+                );
+                setPhone(data[0].phone_number);
+                setAddresss(data[0].address);
+                setTown(data[0].town);
+                setGender(data[0].gender);
+                setPName(`${data[0].first_name} ${data[0].last_name}`);
+                setBioData({
+                    age: differenceInYears(
+                        new Date(),
+                        parseISO(data[0].date_of_birth)
+                    ),
+                    gender: data[0].gender,
+                    phone: data[0].phone_number,
+                    address: `${data[0].address} ${data[0].town}`,
+                });
             })
             .catch((err) => {
                 console.log(err.response.data);
@@ -392,4 +296,4 @@ const Patients = () => {
     }
 };
 
-export default Patients;
+export default BioData;

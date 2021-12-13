@@ -7,19 +7,19 @@ const BioTable = ({ bioData }) => {
                 <tbody>
                     <tr>
                         <td className="p-2 font-medium">Age</td>
-                        <td className="p-2">{bioData.age}</td>
+                        <td className="p-2">{bioData?.age}</td>
                     </tr>
                     <tr>
                         <td className="p-2 font-medium">Gender</td>
-                        <td className="p-2">{bioData.gender}</td>
+                        <td className="p-2">{bioData?.gender}</td>
                     </tr>
                     <tr>
                         <td className="p-2 font-medium">Phone</td>
-                        <td className="p-2">{bioData.phone}</td>
+                        <td className="p-2">{bioData?.phone}</td>
                     </tr>
                     <tr>
                         <td className="p-2 font-medium">Address</td>
-                        <td className="p-2">{bioData.address}</td>
+                        <td className="p-2">{bioData?.address}</td>
                     </tr>
                 </tbody>
             </table>

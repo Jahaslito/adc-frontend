@@ -11,25 +11,12 @@ const Research = () => {
     const [imgUrls, setImgUrls] = useState([]);
     const [uploadBtnVisible, setUploadBtnVisible] = useState(false);
 
-    const fileTypes = ["JPG", "PNG", "GIF"];
-    const [file, setFile] = useState(null);
-    const [imgUrl, setImgUrl] = useState(null);
-
-    const handleChange = (file) => {
-        setFile(file);
-        setUploadBtnVisible(true);
-    };
-
     useEffect(() => {
         if (images.length < 1) return;
         const newImgUrls = [];
         images.forEach((image) => newImgUrls.push(URL.createObjectURL(image)));
         setImgUrls(newImgUrls);
     }, [images]);
-
-    useEffect(() => {
-        if (file) setImgUrl(URL.createObjectURL(file));
-    }, [file]);
 
     function onImageChange(e) {
         setImages([...e.target.files]);
@@ -45,11 +32,12 @@ const Research = () => {
             <div className="mt-6 flex flex-col gap-4 items-center">
                 <label
                     className="
-                            w-8/12
+                            
                             
                             flex flex-col
                             items-center
                             py-6
+                            px-6
                             bg-white
                             rounded-sm
                             shadow-sm
@@ -65,25 +53,25 @@ const Research = () => {
 
                         "
                 >
-                    <div className="flex flex-row flex-wrap content-center gap-4 justify-evenly h-64 ">
+                    <div className="flex flex-row flex-wrap content-center gap-4 justify-evenly">
                         {imgUrls.length === 0 && (
                             <IoMdImages size={60} color={colors.primary} />
                         )}
                         {imgUrls.map((url, key) => (
                             <div
                                 key={key}
-                                className="w-32 shadow-sm overflow-hidden object-cover"
+                                className="w-32 h-32 shadow-sm overflow-hidden object-cover"
                             >
                                 <img src={url} alt="upload" />
                             </div>
                         ))}
                     </div>
                     <span
-                        className={`mt-2 text-base leading-normal ${
+                        className={`mt-2 text-sm font-medium ${
                             imgUrls.length !== 0 && "hidden"
                         }`}
                     >
-                        Select a file(s)
+                        Select file(s)
                     </span>
                     <input
                         type="file"
@@ -129,6 +117,11 @@ const Research = () => {
                             <IoCloseOutline size={20} color={colors.danger} />
                         }
                         theme="danger"
+                        onClick={() => {
+                            setImages([]);
+                            setImgUrls([]);
+                            setUploadBtnVisible(false);
+                        }}
                     />
                 </div>
             </div>
