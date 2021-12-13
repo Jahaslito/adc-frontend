@@ -1,6 +1,6 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import Patients from "./Patients";
+import Patients from "../Patients";
 import Patient from "../Patient";
 
 const VitalSigns = () => {
@@ -12,8 +12,8 @@ const VitalSigns = () => {
 
             <Routes>
                 {/*Define routes here. Also for breadcrumb add the to the routes array in BreadCrumbs.jsx*/}
-                <Route path="/" element={<Patients />} />
-                <Route path=":id" element={<Patient />} />
+                <Route path="/" element={<Patients status={0} />} />
+                <Route path=":id/:visitId" element={<Patient />} />
             </Routes>
         </div>
     );

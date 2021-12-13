@@ -345,7 +345,6 @@ const Patients = () => {
         Api.post("insert_patient_visit", params, config)
             .then((resp) => {
                 console.log(resp.data);
-                setAlerts([]);
                 setAlerts([
                     {
                         message: "Patient queued successfully",

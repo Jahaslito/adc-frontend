@@ -17,7 +17,7 @@ import format from "date-fns/format";
 
 const VitalSigns = () => {
     const { user, setLoaderHidden, setAlerts } = useContext(AppContext);
-    const { id } = useParams();
+    const { id, visitId } = useParams();
     const [modalHidden, setModalHidden] = useState(true);
 
     const [weight, setWeight] = useState("");
@@ -212,9 +212,10 @@ const VitalSigns = () => {
                         timeout: 3,
                     },
                 ]);
+                updateVisitStatus();
             })
             .catch((err) => {
-                console.log(err.response.data);
+                console.log(err);
                 setAlerts([]);
                 setAlerts([
                     {
@@ -227,6 +228,24 @@ const VitalSigns = () => {
             .finally(() => {
                 setLoaderHidden(true);
                 setModalHidden(true);
+            });
+    }
+
+    function updateVisitStatus() {
+        const params = new FormData();
+        params.append("patient_visit_id", visitId);
+        const config = {
+            headers: {
+                Authorization: `Bearer ${user.token}`,
+            },
+        };
+
+        Api.post("update_patient_visit", params, config)
+            .then((resp) => {
+                console.log(resp.data);
+            })
+            .catch((err) => {
+                console.log(err.response.data);
             });
     }
 };

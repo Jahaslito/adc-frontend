@@ -16,7 +16,7 @@ import parseISO from "date-fns/parseISO";
 import format from "date-fns/format";
 
 const DiagnosisPrescription = () => {
-    const { id } = useParams();
+    const { id, visitId } = useParams();
     const { user, setLoaderHidden, setAlerts } = useContext(AppContext);
     const [modalHidden, setModalHidden] = useState(true);
     const [diagnosis, setDiagnosis] = useState(
@@ -232,12 +232,31 @@ const DiagnosisPrescription = () => {
                     },
                 ]);
                 getRecords();
+                updateVisitStatus();
             })
             .catch((err) => {
                 console.log(err.response.data);
             })
             .finally(() => {
                 setLoaderHidden(true);
+            });
+    }
+
+    function updateVisitStatus() {
+        const params = new FormData();
+        params.append("patient_visit_id", visitId);
+        const config = {
+            headers: {
+                Authorization: `Bearer ${user.token}`,
+            },
+        };
+
+        Api.post("update_patient_visit", params, config)
+            .then((resp) => {
+                console.log(resp.data);
+            })
+            .catch((err) => {
+                console.log(err.response.data);
             });
     }
 };

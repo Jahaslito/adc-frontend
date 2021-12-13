@@ -187,6 +187,7 @@ const Labs = ({ rows }) => {
                         timeout: 3,
                     },
                 ]);
+                getRequests();
             })
             .catch((err) => {
                 console.log(err.response.data);
