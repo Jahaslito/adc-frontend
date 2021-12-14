@@ -1,13 +1,13 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 import Patients from "./Patients";
-import Patient from "./Patient";
+import Patient from "../Patient";
 
-const VitalSigns = () => {
+const Receptionist = () => {
     return (
         <div className="w-full text-gray-600 flex flex-col">
-            <div className="flex flex-row items-center px-3 pb-3 border-b mb-4">
-                <span className="text-lg font-light">Vital Signs</span>
+            <div className="flex flex-row items-center justify-between px-3 pb-3 border-b mb-4">
+                <span className="text-lg font-light">Patients</span>
             </div>
 
             <Routes>
@@ -19,4 +19,4 @@ const VitalSigns = () => {
     );
 };
 
-export default VitalSigns;
+export default Receptionist;

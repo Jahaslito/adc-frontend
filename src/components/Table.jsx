@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 /**
  *
@@ -6,7 +7,7 @@ import React from "react";
  * rows should be a 2d array.
  * no heading displays the table with no heading
  */
-const Table = ({ cols, rows, noHeading }) => {
+const Table = ({ cols, rows, noHeading, hasLinks }) => {
     return (
         <div className="">
             <table className="text-xs w-full border p-2">
@@ -23,13 +24,25 @@ const Table = ({ cols, rows, noHeading }) => {
                     {rows.map((row, index) => (
                         <tr
                             key={index}
-                            className={index % 2 === 0 ? "bg-gray-100" : ""}
+                            className={`relative cursor-pointer ${
+                                index % 2 === 0 ? "bg-gray-100" : ""
+                            }`}
+                            onClick={() => {
+                                row.rowClick && row.rowClick();
+                            }}
                         >
-                            {row.map((cell, index) => (
+                            {row?.data?.map((cell, index) => (
                                 <td key={index} className="p-3">
                                     {cell}
                                 </td>
                             ))}
+
+                            {hasLinks && (
+                                <Link
+                                    to={row.link ? row.link : ""}
+                                    className="absolute w-full h-full bg-white border left-0 opacity-0"
+                                ></Link>
+                            )}
                         </tr>
                     ))}
                 </tbody>

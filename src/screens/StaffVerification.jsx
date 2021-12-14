@@ -1,12 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import Button from "../components/Button";
 import { BsArrowRight } from "react-icons/bs";
 import { colors } from "../assets/colors/colors";
 import Input from "../components/Input";
 import logo from "../assets/img/jenner.svg";
 import { Link } from "react-router-dom";
+import { Api } from "../util/Api";
+import { useNavigate } from "react-router-dom";
+import Alert from "../components/Alert";
 
 const StaffVerification = () => {
+    const navigate = useNavigate();
+    const [staffId, setStaffId] = useState("");
+    const [role, setRole] = useState("Doctor");
+
+    //alert
+    const [alertLabel, setAlertLabel] = useState("");
+    const [alertHidden, setAlertHidden] = useState(true);
+
     return (
         <div className="w-full h-screen flex justify-center items-center bg-gray-100">
             <div className="w-6/12 flex flex-col items-center">
@@ -16,64 +27,78 @@ const StaffVerification = () => {
                 </span>
                 <div className="rounded-sm shadow-lg w-8/12 p-8 bg-white">
                     <div className="font-heading text-gray-600 text-2xl mb-8">
-                        Verification
+                        Let's Verify You
                     </div>
+                    <Alert
+                        label={alertLabel}
+                        theme="red-500"
+                        hidden={alertHidden}
+                        setHidden={setAlertHidden}
+                    />
                     <div className="mb-6">
                         <Input
                             label="Staff ID"
                             type="text"
                             placeholder="Staff ID"
+                            value={staffId}
+                            onChange={(event) => setStaffId(event.target.value)}
                             required
                         />
                     </div>
                     <div className="mb-6">
-                    <label for="role" className="text-sm font-medium text-gray-500">Role</label>
                         <div className="mt-3">
-                        <span className="text-sm font-medium text-gray-500">
-                            {" "}
-                            Role
-                            <span className="text-red-500">*</span>
-                        </span>
-                        <div className="flex flex-row items-center gap-2 text-sm font-medium text-gray-500 mt-2">
-                            <div className="flex flex-row items-center gap-2">
-                                <label htmlFor="roleBox">Doctor</label>
-                                <input
-                                    id="roleBox"
-                                    type="radio"
-                                    name="role"
-                                />
+                            <span className="text-sm font-medium text-gray-500">
+                                Select your role
+                                <span className="text-red-500">*</span>
+                            </span>
+                            <div className="flex flex-row items-center gap-2 text-sm font-medium text-gray-500 mt-2">
+                                <div className="flex flex-row items-center gap-2">
+                                    <input
+                                        id="roleBox"
+                                        type="radio"
+                                        name="role"
+                                        checked={role === "Doctor"}
+                                        onChange={() => setRole("Doctor")}
+                                    />
+                                    <label htmlFor="roleBox">Doctor</label>
+                                </div>
+                                <div className="flex flex-row items-center gap-2">
+                                    <input
+                                        id="roleBox"
+                                        type="radio"
+                                        name="role"
+                                        checked={role === "Nurse"}
+                                        onChange={() => setRole("Nurse")}
+                                    />
+                                    <label htmlFor="roleBox">Nurse</label>
+                                </div>
+                                <div className="flex flex-row items-center gap-2">
+                                    <input
+                                        id="roleBox"
+                                        type="radio"
+                                        name="role"
+                                        checked={role === "Lab technician"}
+                                        onChange={() =>
+                                            setRole("Lab technician")
+                                        }
+                                    />
+                                    <label htmlFor="roleBox">
+                                        Lab technician
+                                    </label>
+                                </div>
+                                <div className="flex flex-row items-center gap-2">
+                                    <input
+                                        id="roleBox"
+                                        type="radio"
+                                        name="role"
+                                        checked={role === "Receptionist"}
+                                        onChange={() => setRole("Receptionist")}
+                                    />
+                                    <label htmlFor="roleBox">
+                                        Receptionist
+                                    </label>
+                                </div>
                             </div>
-                            <div className="flex flex-row items-center gap-2">
-                                <label htmlFor="roleBox">
-                                    Nurse
-                                </label>
-                                <input
-                                    id="roleBox"
-                                    type="radio"
-                                    name="role"
-                                />
-                            </div>
-                            <div className="flex flex-row items-center gap-2">
-                                <label htmlFor="roleBox">
-                                    Lab Technician
-                                </label>
-                                <input
-                                    id="roleBox"
-                                    type="radio"
-                                    name="role"
-                                />
-                            </div>
-                            <div className="flex flex-row items-center gap-2">
-                                <label htmlFor="roleBox">
-                                    Receptionist
-                                </label>
-                                <input
-                                    id="roleBox"
-                                    type="radio"
-                                    name="role"
-                                />
-                            </div>
-                        </div>
                         </div>
                     </div>
                     <div>
@@ -86,6 +111,7 @@ const StaffVerification = () => {
                                     color={colors.primary}
                                 />
                             }
+                            onClick={verify}
                         />
                     </div>
                 </div>
@@ -98,6 +124,33 @@ const StaffVerification = () => {
             </div>
         </div>
     );
+
+    function verify() {
+        const params = new FormData();
+        params.append("role", role);
+
+        if (!staffId) {
+            setAlertLabel("Staff ID cannot be empty");
+            setAlertHidden(false);
+            return;
+        }
+
+        Api.post(`verify_staff/${staffId}`, params)
+            .then((resp) => {
+                if (resp.data.success) {
+                    navigate("/staff_registration", {
+                        state: { role: role, staffId: staffId },
+                    });
+                }
+            })
+            .catch((err) => {
+                if (!err.response.data.success) {
+                    setAlertLabel(err.response.data.error?.message);
+                    setAlertHidden(false);
+                }
+                //console.log(err.response.data);
+            });
+    }
 };
 
 export default StaffVerification;
