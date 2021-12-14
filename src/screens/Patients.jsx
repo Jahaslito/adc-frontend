@@ -30,6 +30,11 @@ const Patients = ({ status }) => {
                     />
                 </div>
                 <Table cols={cols} rows={rows} hasLinks />
+                {rows.length === 0 && (
+                    <span className="text-xs font-medium text-gray-400">
+                        Nothing to show :(
+                    </span>
+                )}
             </div>
         </div>
     );

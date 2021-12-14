@@ -14,18 +14,18 @@ import { useParams } from "react-router-dom";
 import AccordionItem from "./AccordionItem";
 import parseISO from "date-fns/parseISO";
 import format from "date-fns/format";
+import Alert from "./Alert";
 
 const DiagnosisPrescription = () => {
     const { id, visitId } = useParams();
     const { user, setLoaderHidden, setAlerts } = useContext(AppContext);
     const [modalHidden, setModalHidden] = useState(true);
-    const [diagnosis, setDiagnosis] = useState(
-        "This is your second question about asynchronicity in JavaScript. I'm all for that, please keep asking well formed questions. However, is there a core question that might be better asked like. What does asynchronicity actually mean in JS?"
-    );
-    const [medication, setMedication] = useState("Asprin");
-    const [quantity, setQuantity] = useState(3);
-    const [dosage, setDosage] = useState("tablets 3 times a day");
+    const [diagnosis, setDiagnosis] = useState("");
+    const [medication, setMedication] = useState("");
+    const [quantity, setQuantity] = useState();
+    const [dosage, setDosage] = useState("");
     const [records, setRecords] = useState([]);
+    const [errors, setErrors] = useState([]);
 
     useEffect(() => {
         getRecords();
@@ -71,7 +71,7 @@ const DiagnosisPrescription = () => {
             </div>
 
             <Modal hidden={modalHidden}>
-                <div className="flex flex-col bg-white rounded-lg shadow-2xl">
+                <div className="flex flex-col bg-white rounded-lg shadow-2xl overflow-hidden">
                     <div className="py-3 px-6 border-b text-sm font-medium text-gray-600 flex justify-between items-center">
                         <span>Add diagnosis and prescription</span>
                         <div
@@ -80,6 +80,11 @@ const DiagnosisPrescription = () => {
                         >
                             <IoCloseOutline size={20} />
                         </div>
+                    </div>
+                    <div className="grid grid-cols-2 gap-4 px-4 py-1">
+                        {Object.entries(errors).map((entry, key) => (
+                            <Alert label={entry[1]} key={key} theme="red-500" />
+                        ))}
                     </div>
                     <div className="flex flex-col p-4">
                         <span className="text-sm font-medium my-2">
@@ -183,8 +188,6 @@ const DiagnosisPrescription = () => {
     }
 
     function save() {
-        setModalHidden(true);
-
         const params = new FormData();
         params.append("staff_id", user.id);
         params.append("patient_id", id);
@@ -206,6 +209,7 @@ const DiagnosisPrescription = () => {
             .catch((err) => {
                 console.log(err.response.data);
                 setLoaderHidden(true);
+                setErrors(err.response.data.errors);
             });
 
         setLoaderHidden(false);
@@ -235,9 +239,11 @@ const DiagnosisPrescription = () => {
                 ]);
                 getRecords();
                 updateVisitStatus();
+                setModalHidden(true);
             })
             .catch((err) => {
                 console.log(err.response.data);
+                setErrors(err.response.data.errors);
             })
             .finally(() => {
                 setLoaderHidden(true);

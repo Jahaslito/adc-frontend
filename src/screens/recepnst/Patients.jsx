@@ -9,6 +9,7 @@ import { IoCloseOutline } from "react-icons/io5";
 import Modal from "../../components/Modal";
 import { MdSave } from "react-icons/md";
 import { Api } from "../../util/Api";
+import Alert from "../../components/Alert";
 
 const Patients = () => {
     const { setLoaderHidden, setAlerts, user } = useContext(AppContext);
@@ -30,6 +31,7 @@ const Patients = () => {
     const [addresss, setAddresss] = useState("Ole Sangale");
     const [town, setTown] = useState("Siwaka");
     const [dateOfBirth, setDateOfBirth] = useState("2001-12-12");
+    const [errors, setErrors] = useState([]);
 
     const [search, setSearch] = useState("");
     const [timeoutId, setTimeoutId] = useState(null);
@@ -78,6 +80,11 @@ const Patients = () => {
                         >
                             <IoCloseOutline size={20} color={colors.primary} />
                         </div>
+                    </div>
+                    <div className="grid grid-cols-2 gap-4 px-4 py-1">
+                        {Object.entries(errors).map((entry, key) => (
+                            <Alert label={entry[1]} key={key} theme="red-500" />
+                        ))}
                     </div>
                     <div className="grid grid-cols-2 py-4 px-6 gap-x-10 gap-y-4">
                         <div className="">
@@ -307,6 +314,7 @@ const Patients = () => {
         Api.post("register", params)
             .then((resp) => {
                 console.log(resp.data);
+                setModalHidden(true);
                 setAlerts([]);
                 if (resp.data.success) {
                     setAlerts([
@@ -328,10 +336,10 @@ const Patients = () => {
                     ]);
                 }
             })
-            .catch((err) => console.log(err.response.data))
-            .finally(() => {
+            .catch((err) => {
+                console.log(err.response.data);
+                setErrors(err.response.data.errors);
                 setLoaderHidden(true);
-                setModalHidden(true);
             });
     }
 

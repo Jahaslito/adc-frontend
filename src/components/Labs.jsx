@@ -12,19 +12,20 @@ import { useParams } from "react-router-dom";
 import { Api } from "../util/Api";
 import parseISO from "date-fns/parseISO";
 import format from "date-fns/format";
+import Alert from "./Alert";
 
 const Labs = ({ rows }) => {
     const { user, setLoaderHidden, setAlerts } = useContext(AppContext);
     const { id } = useParams();
     const [modalHidden, setModalHidden] = useState(true);
-    const [desc, setDesc] = useState(
-        "Get the number of full years between the given dates."
-    );
+    const [desc, setDesc] = useState("");
     const cols = ["Lab type", "Status", "Results", "Datetime"];
     const [labRequests, setLabRequests] = useState([]);
     const [labResults, setLabResults] = useState([]);
     const colsForReq = ["Patient", "Doctor", "Description", "Date Time"];
     const colsForRes = ["Patient", "Test type", "Results"];
+
+    const [errors, setErrors] = useState([]);
 
     useEffect(() => {
         getRequests();
@@ -75,6 +76,11 @@ const Labs = ({ rows }) => {
                         >
                             <IoCloseOutline size={20} />
                         </div>
+                    </div>
+                    <div className="grid grid-cols-2 gap-4 px-4 py-1">
+                        {Object.entries(errors).map((entry, key) => (
+                            <Alert label={entry[1]} key={key} theme="red-500" />
+                        ))}
                     </div>
                     <div className="flex flex-col p-4">
                         <span className="text-sm font-medium my-2">
@@ -167,7 +173,6 @@ const Labs = ({ rows }) => {
     }
 
     function requestLab() {
-        setModalHidden(true);
         const params = new FormData();
         params.append("patient_id", id);
         params.append("doctor_id", user.id);
@@ -181,6 +186,8 @@ const Labs = ({ rows }) => {
         Api.post("request_lab", params, config)
             .then((resp) => {
                 console.log(resp.data);
+                setLoaderHidden(true);
+
                 setAlerts([]);
                 setAlerts([
                     {
@@ -189,13 +196,14 @@ const Labs = ({ rows }) => {
                         timeout: 3,
                     },
                 ]);
+                setModalHidden(true);
+                setLoaderHidden(true);
                 getRequests();
             })
             .catch((err) => {
                 console.log(err.response.data);
-            })
-            .finally(() => {
                 setLoaderHidden(true);
+                setErrors(err.response.data.errors);
             });
     }
 };

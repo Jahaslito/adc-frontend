@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import Button from "../components/Button";
 import { BsArrowRight } from "react-icons/bs";
 import { colors } from "../assets/colors/colors";
@@ -8,13 +8,14 @@ import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import Alert from "../components/Alert";
 import { Api } from "../util/Api";
-import { AppContext } from "../util/AppContext";
 import { useNavigate } from "react-router-dom";
+import PageWideSpinner from "../components/PageWideSpinner";
 
 const StaffRegistration = () => {
     //navigation hook
     const navigate = useNavigate();
 
+    const [spinnerHidden, setSpinnerHidden] = useState(true);
     const { state } = useLocation();
     console.log(state.staffId);
 
@@ -27,71 +28,74 @@ const StaffRegistration = () => {
     const [confmPassword, setConfmPassword] = useState("");
     const [valdErr, setValdErr] = useState("");
     return (
-        <div className="w-full h-screen flex justify-center items-center bg-gray-100">
-            <div className="w-6/12 flex flex-col items-center">
-                <img src={logo} width={150} alt="Jenner" />
-                <span className="font-heading text-lg text-gray-600 font-medium mb-4">
-                    JENNER
-                </span>
-                <div className="rounded-sm shadow-lg w-8/12 p-8 bg-white">
-                    <div className="font-heading text-gray-600 text-2xl mb-8">
-                        Choose a password
-                    </div>
-                    <Alert
-                        label={alertLabel}
-                        theme="red-500"
-                        hidden={alertHidden}
-                        setHidden={setAlertHidden}
-                    />
+        <>
+            <PageWideSpinner hidden={spinnerHidden} />
+            <div className="w-full h-screen flex justify-center items-center bg-gray-100">
+                <div className="w-6/12 flex flex-col items-center">
+                    <img src={logo} width={150} alt="Jenner" />
+                    <span className="font-heading text-lg text-gray-600 font-medium mb-4">
+                        JENNER
+                    </span>
+                    <div className="rounded-sm shadow-lg w-8/12 p-8 bg-white">
+                        <div className="font-heading text-gray-600 text-2xl mb-8">
+                            Choose a password
+                        </div>
+                        <Alert
+                            label={alertLabel}
+                            theme="red-500"
+                            hidden={alertHidden}
+                            setHidden={setAlertHidden}
+                        />
 
-                    <div className="mb-6">
-                        <Input
-                            label="Password"
-                            type="password"
-                            placeholder="Password"
-                            required
-                            value={password}
-                            onChange={(event) =>
-                                setPassword(event.target.value)
-                            }
-                            validate={valdErr}
-                        />
+                        <div className="mb-6">
+                            <Input
+                                label="Password"
+                                type="password"
+                                placeholder="Password"
+                                required
+                                value={password}
+                                onChange={(event) =>
+                                    setPassword(event.target.value)
+                                }
+                                validate={valdErr}
+                            />
+                        </div>
+                        <div className="mb-6">
+                            <Input
+                                label="Confirm Password"
+                                type="password"
+                                placeholder="Password"
+                                required
+                                value={confmPassword}
+                                onChange={(event) =>
+                                    setConfmPassword(event.target.value)
+                                }
+                                validate={valdErr}
+                            />
+                        </div>
+                        <div>
+                            <Button
+                                label="Register"
+                                block
+                                icon={
+                                    <BsArrowRight
+                                        size={20}
+                                        color={colors.primary}
+                                    />
+                                }
+                                onClick={register}
+                            />
+                        </div>
                     </div>
-                    <div className="mb-6">
-                        <Input
-                            label="Confirm Password"
-                            type="password"
-                            placeholder="Password"
-                            required
-                            value={confmPassword}
-                            onChange={(event) =>
-                                setConfmPassword(event.target.value)
-                            }
-                            validate={valdErr}
-                        />
-                    </div>
-                    <div>
-                        <Button
-                            label="Register"
-                            block
-                            icon={
-                                <BsArrowRight
-                                    size={20}
-                                    color={colors.primary}
-                                />
-                            }
-                            onClick={register}
-                        />
-                    </div>
-                </div>
-                <div className="flex flex-row justify-start mt-1 w-8/12">
-                    <div className="flex flex-row text-gray-600 text-sm font-medium  p-2 items-center gap-1 hover:text-primary">
-                        <Link to="/login">Login</Link>
-                        <BsArrowRight size={16} color={colors.primary} />
+                    <div className="flex flex-row justify-start mt-1 w-8/12">
+                        <div className="flex flex-row text-gray-600 text-sm font-medium  p-2 items-center gap-1 hover:text-primary">
+                            <Link to="/login">Login</Link>
+                            <BsArrowRight size={16} color={colors.primary} />
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </>
     );
 
     function register() {
@@ -103,15 +107,21 @@ const StaffRegistration = () => {
         params.append("password_confirmation", confmPassword);
         params.append("role", state.role);
 
+        setSpinnerHidden(false);
         Api.post("register_staff", params)
             .then((resp) => {
                 console.log(resp.data);
+                setSpinnerHidden(true);
+
                 if (resp.data.success) {
                     navigate("/staff/login");
                 }
             })
             .catch((err) => {
+                setSpinnerHidden(true);
                 console.log(err.response.data);
+                setAlertHidden(false);
+                setAlertLabel("An error occured");
             });
     }
     function validatePasswords() {

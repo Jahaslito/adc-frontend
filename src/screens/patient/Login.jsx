@@ -15,8 +15,8 @@ const Login = () => {
     const navigate = useNavigate();
     const { storeSession } = useContext(AppContext);
 
-    const [email, setEmail] = useState("tony.mogoa874@strathmore.edu");
-    const [password, setPassword] = useState("password");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
 
     const [spinnerHidden, setSpinnerHidden] = useState(true);
 
@@ -38,12 +38,14 @@ const Login = () => {
                             Login
                         </div>
 
-                        <Alert
-                            label={alertLabel}
-                            theme="red-500"
-                            hidden={alertHidden}
-                            setHidden={setAlertHidden}
-                        />
+                        <div className="mb-3">
+                            <Alert
+                                label={alertLabel}
+                                theme="red-500"
+                                hidden={alertHidden}
+                                setHidden={setAlertHidden}
+                            />
+                        </div>
 
                         <div className="mb-6">
                             <Input
@@ -105,6 +107,7 @@ const Login = () => {
                 console.log(resp.data);
                 const { token, user } = resp.data.data;
                 if (resp.data.success) {
+                    setSpinnerHidden(true);
                     storeSession({
                         id: user.id,
                         firstName: user.first_name,
@@ -121,8 +124,6 @@ const Login = () => {
                 console.log(err.response.data);
                 setAlertLabel("Invalid credentials");
                 setAlertHidden(false);
-            })
-            .finally(() => {
                 setSpinnerHidden(true);
             });
     }
