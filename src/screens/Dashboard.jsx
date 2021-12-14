@@ -50,7 +50,7 @@ const Dashboard = () => {
         {
             label: "Virtual Consultation",
             path: "vconsul",
-            roles: ["Receptionist", "Doctor", "Nurse"],
+            roles: ["Receptionist", "Doctor", "Patient"],
             icon: <BsCameraVideo size={70} color={colors.primary} />,
         },
         {

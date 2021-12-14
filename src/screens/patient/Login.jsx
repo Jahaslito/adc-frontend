@@ -90,6 +90,10 @@ const Login = () => {
                             <Link to="/register">Register</Link>
                             <BsArrowRight size={16} color={colors.primary} />
                         </div>
+                        <div className="flex flex-row text-gray-600 text-sm font-medium  p-2 items-center gap-1 hover:text-primary">
+                            <Link to="/staff/login">Staff Login</Link>
+                            <BsArrowRight size={16} color={colors.primary} />
+                        </div>
                     </div>
                 </div>
             </div>
