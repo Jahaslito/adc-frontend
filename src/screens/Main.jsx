@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Dashboard from "./Dashboard";
 import BreadCrumbs from "../components/BreadCrumbs";
 import Doctor from "./doctor/Doctor";
@@ -14,6 +14,7 @@ import PageWideSpinner from "../components/PageWideSpinner";
 import { AppContext } from "../util/AppContext";
 import Receptionist from "./recepnst/Receptionist";
 import Alert from "../components/Alert";
+import Vconsul from "./Vconsul";
 
 const Main = () => {
     const { loaderHidden, alerts } = useContext(AppContext);
@@ -51,6 +52,7 @@ const Main = () => {
                         <Route path="appoint" element={<Appointments />} />
                         <Route path="research" element={<Research />} />
                         <Route path="lab/*" element={<Lab />} />
+                        <Route path="vconsul" element={<Vconsul />} />
                     </Routes>
                 </div>
                 <Footer />
