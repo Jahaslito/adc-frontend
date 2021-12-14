@@ -37,7 +37,7 @@ const Dashboard = () => {
         {
             label: "Appointments",
             path: "appoint",
-            roles: ["Nurse", "Doctor", "Patient"],
+            roles: ["Receptionist", "Doctor", "Patient"],
             icon: <IoCalendarOutline size={70} color={colors.primary} />,
         },
 

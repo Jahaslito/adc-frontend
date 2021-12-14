@@ -6,7 +6,7 @@ import { Api } from "../util/Api";
 
 const UserBar = () => {
     const [dropdownVisible, setDropdownVisible] = useState(false);
-    const { user, deleteSession } = useContext(AppContext);
+    const { user, deleteSession, setLoaderHidden } = useContext(AppContext);
 
     document.addEventListener("click", () => {
         if (dropdownVisible) {
@@ -70,12 +70,15 @@ const UserBar = () => {
         const config = {
             headers: { Authorization: `Bearer ${user.token}` },
         };
+        setLoaderHidden(false);
         Api.post("logout", {}, config)
             .then((resp) => {
+                setLoaderHidden(true);
                 deleteSession();
             })
             .catch((err) => {
                 console.log(err.response.data);
+                setLoaderHidden(true);
             });
     }
 };

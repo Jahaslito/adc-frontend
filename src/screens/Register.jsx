@@ -239,7 +239,7 @@ const Register = () => {
             .then((resp) => {
                 console.log(resp.data);
                 const { token, user } = resp.data.data;
-
+                setSpinnerHidden(true);
                 storeSession({
                     id: user.id,
                     firstName: user.first_name,
@@ -254,8 +254,6 @@ const Register = () => {
             .catch((err) => {
                 console.log(err.response.data);
                 setErrors(err.response.data.errors);
-            })
-            .finally(() => {
                 setSpinnerHidden(true);
             });
     }

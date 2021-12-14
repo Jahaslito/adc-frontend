@@ -38,12 +38,14 @@ const Login = () => {
                             Staff Login
                         </div>
 
-                        <Alert
-                            label={alertLabel}
-                            theme="red-500"
-                            hidden={alertHidden}
-                            setHidden={setAlertHidden}
-                        />
+                        <div className="mb-3">
+                            <Alert
+                                label={alertLabel}
+                                theme="red-500"
+                                hidden={alertHidden}
+                                setHidden={setAlertHidden}
+                            />
+                        </div>
                         <div className="mb-6">
                             <Input
                                 label="Staff ID"

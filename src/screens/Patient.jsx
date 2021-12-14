@@ -13,6 +13,7 @@ import { Api } from "../util/Api";
 import Input from "../components/Input";
 import { MdSave } from "react-icons/md";
 import { useParams } from "react-router-dom";
+import Alert from "../components/Alert";
 
 const Patient = () => {
     const { id } = useParams();
@@ -22,6 +23,7 @@ const Patient = () => {
     const [doctor, setDoctor] = useState("");
     const [time, setTime] = useState("");
     const [date, setDate] = useState("");
+    const [errors, setErrors] = useState([]);
 
     const [pName, setPName] = useState("");
 
@@ -73,6 +75,11 @@ const Patient = () => {
                             <IoCloseOutline size={20} />
                         </div>
                     </div>
+                    <div className="grid grid-cols-2 gap-4 px-4 py-1">
+                        {Object.entries(errors).map((entry, key) => (
+                            <Alert label={entry[1]} key={key} theme="red-500" />
+                        ))}
+                    </div>
 
                     <div className="grid grid-cols-2 gap-10 p-6">
                         <Input
@@ -110,7 +117,7 @@ const Patient = () => {
                                             value={doctor_.id}
                                             key={key}
                                             className="p-4"
-                                        >{`${doctor_.doctor_first_name} ${doctor_.doctor_first_name}`}</option>
+                                        >{`${doctor_.doctor_first_name} ${doctor_.doctor_last_name}`}</option>
                                     ))}
                                 </select>
                             </div>
@@ -180,13 +187,13 @@ const Patient = () => {
                         timeout: 3,
                     },
                 ]);
+                setLoaderHidden(true);
+                setModalHidden(true);
             })
             .catch((err) => {
                 console.log(err.response.data);
-            })
-            .finally(() => {
                 setLoaderHidden(true);
-                setModalHidden(true);
+                setErrors(err.response.data.errors);
             });
     }
 

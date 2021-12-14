@@ -107,6 +107,7 @@ const Login = () => {
                 console.log(resp.data);
                 const { token, user } = resp.data.data;
                 if (resp.data.success) {
+                    setSpinnerHidden(true);
                     storeSession({
                         id: user.id,
                         firstName: user.first_name,
@@ -123,8 +124,6 @@ const Login = () => {
                 console.log(err.response.data);
                 setAlertLabel("Invalid credentials");
                 setAlertHidden(false);
-            })
-            .finally(() => {
                 setSpinnerHidden(true);
             });
     }

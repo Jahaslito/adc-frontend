@@ -13,6 +13,7 @@ import { useParams } from "react-router-dom";
 import { AppContext } from "../util/AppContext";
 import { Api } from "../util/Api";
 import parseISO from "date-fns/parseISO";
+import Alert from "./Alert";
 import format from "date-fns/format";
 
 const VitalSigns = () => {
@@ -26,6 +27,7 @@ const VitalSigns = () => {
     const [bPressure, setBPressure] = useState("");
     const [pulseRate, setPulseRate] = useState("");
     const [vitals, setVitals] = useState([]);
+    const [errors, setErrors] = useState([]);
     useEffect(() => {
         getVitals();
     }, []);
@@ -70,6 +72,11 @@ const VitalSigns = () => {
                         >
                             <IoCloseOutline size={20} />
                         </div>
+                    </div>
+                    <div className="grid grid-cols-2 gap-4 px-4 py-1">
+                        {errors.map((err, key) => (
+                            <Alert label={err} key={key} theme="red-500" />
+                        ))}
                     </div>
                     <div className="grid grid-cols-2 gap-4 p-6">
                         <div className="mb-6">
@@ -214,22 +221,14 @@ const VitalSigns = () => {
                         timeout: 3,
                     },
                 ]);
+                setLoaderHidden(true);
+                setModalHidden(true);
                 updateVisitStatus();
             })
             .catch((err) => {
-                console.log(err);
-                setAlerts([]);
-                setAlerts([
-                    {
-                        message: "Error occurred",
-                        theme: "red-500",
-                        timeout: 3,
-                    },
-                ]);
-            })
-            .finally(() => {
+                console.log(err.response.data.message);
+                setErrors(["Please fill all fields"]);
                 setLoaderHidden(true);
-                setModalHidden(true);
             });
     }
 

@@ -12,7 +12,6 @@ import LandingPage from "./screens/LandingPage";
 import { ProtectedRoute } from "./util/ProtectedRoute";
 
 function App() {
-    const { user } = useContext(AppContext);
     return (
         <BrowserRouter>
             <Routes>

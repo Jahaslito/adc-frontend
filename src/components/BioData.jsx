@@ -13,6 +13,7 @@ import { useParams } from "react-router-dom";
 import { Api } from "../util/Api";
 import differenceInYears from "date-fns/differenceInYears";
 import parseISO from "date-fns/parseISO";
+import Alert from "./Alert";
 import { format } from "date-fns";
 
 const BioData = ({ setPName }) => {
@@ -22,6 +23,7 @@ const BioData = ({ setPName }) => {
     const [modalHidden, setModalHidden] = useState(true);
     const [userData, setUserData] = useState({});
 
+    const [errors, setErrors] = useState([]);
     //patient
     //new patient
     const [firstName, setFirstName] = useState("");
@@ -49,9 +51,7 @@ const BioData = ({ setPName }) => {
                     {user.role === "Receptionist" && (
                         <IconButton
                             icon={<MdEdit size={18} />}
-                            style_={`text-primary ${
-                                user.role !== "Patient" && "hidden"
-                            }`}
+                            style_={`text-primary`}
                             onClick={() => setModalHidden(false)}
                         />
                     )}
@@ -68,6 +68,11 @@ const BioData = ({ setPName }) => {
                         >
                             <IoCloseOutline size={20} color={colors.primary} />
                         </div>
+                    </div>
+                    <div className="grid grid-cols-2 gap-4 px-4 py-1">
+                        {errors.map((err, key) => (
+                            <Alert label={err} key={key} theme="red-500" />
+                        ))}
                     </div>
                     <div className="grid grid-cols-2 py-4 px-6 gap-x-10 gap-y-4">
                         <div className="">
@@ -249,12 +254,14 @@ const BioData = ({ setPName }) => {
                         timeout: 3,
                     },
                 ]);
-                getBio();
-            })
-            .catch((err) => console.log(err.response.data))
-            .finally(() => {
                 setLoaderHidden(true);
                 setModalHidden(true);
+                getBio();
+            })
+            .catch((err) => {
+                console.log(err);
+                setErrors(["Please fill all fields"]);
+                setLoaderHidden(true);
             });
     }
 

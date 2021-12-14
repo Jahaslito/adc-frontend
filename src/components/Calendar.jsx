@@ -27,7 +27,17 @@ const Calendar = () => {
 
     useEffect(() => {
         setRenderEmptyDays();
-        getAppointments();
+        switch (user.role) {
+            case "Receptionist":
+                getAppointmentsReceptionist();
+                break;
+            case "Doctor":
+                getAppointmentsDoctor();
+                break;
+            default:
+                getAppointmentsPatient();
+                break;
+        }
         setDays([]);
     }, [date]);
 
@@ -101,6 +111,11 @@ const Calendar = () => {
 
                     <div className="p-10">
                         <Table cols={cols} rows={genRows()} />
+                        {genRows().length === 0 && (
+                            <span className="text-xs font-medium text-gray-400">
+                                Nothing to show :(
+                            </span>
+                        )}
                     </div>
                 </div>
             </Modal>
@@ -110,7 +125,7 @@ const Calendar = () => {
     function genRows() {
         if (clickedDate) {
             const rows_ = [];
-            appoints[clickedDate].forEach((appoint) => {
+            appoints[clickedDate]?.forEach((appoint) => {
                 const row = [];
                 row.push(`${appoint.first_name} ${appoint.last_name}`);
                 row.push(
@@ -150,7 +165,7 @@ const Calendar = () => {
         setDays(__days);
     }
 
-    function getAppointments() {
+    function getAppointmentsReceptionist() {
         const startDate = format(startOfMonth(date), "yyyy-MM-dd");
         const endDate = format(lastDayOfMonth(date), "yyyy-MM-dd");
 
@@ -160,6 +175,62 @@ const Calendar = () => {
 
         setLoaderHidden(false);
         Api.post(`query_appointment/${startDate}/${endDate}`, {}, config)
+            .then((resp) => {
+                //console.log(resp.data);
+                processResults(resp.data.data);
+            })
+            .catch((err) => {
+                console.log(err.response.data);
+            })
+            .finally(() => {
+                setLoaderHidden(true);
+            });
+    }
+
+    function getAppointmentsDoctor() {
+        const startDate = format(startOfMonth(date), "yyyy-MM-dd");
+        const endDate = format(lastDayOfMonth(date), "yyyy-MM-dd");
+        const params = new FormData();
+        params.append("id", user.id);
+
+        const config = {
+            headers: { Authorization: `Bearer ${user.token}` },
+        };
+
+        setLoaderHidden(false);
+        Api.post(
+            `doctor_query_appointment/${startDate}/${endDate}`,
+            params,
+            config
+        )
+            .then((resp) => {
+                //console.log(resp.data);
+                processResults(resp.data.data);
+            })
+            .catch((err) => {
+                console.log(err.response.data);
+            })
+            .finally(() => {
+                setLoaderHidden(true);
+            });
+    }
+
+    function getAppointmentsPatient() {
+        const startDate = format(startOfMonth(date), "yyyy-MM-dd");
+        const endDate = format(lastDayOfMonth(date), "yyyy-MM-dd");
+        const params = new FormData();
+        params.append("id", user.id);
+
+        const config = {
+            headers: { Authorization: `Bearer ${user.token}` },
+        };
+
+        setLoaderHidden(false);
+        Api.post(
+            `patient_query_appointment/${startDate}/${endDate}`,
+            params,
+            config
+        )
             .then((resp) => {
                 //console.log(resp.data);
                 processResults(resp.data.data);
