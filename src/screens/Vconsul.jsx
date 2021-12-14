@@ -14,7 +14,7 @@ const Vconsul = () => {
     const [rows, setRows] = useState([
         {
             data: [
-                `${user.first_name} ${user.last_name}`,
+                `${user.firstName} ${user.lastName}`,
                 "Jackson Ray",
                 "Confirmed",
                 "12-12-2021 10:04 am",
@@ -30,7 +30,7 @@ const Vconsul = () => {
         },
         {
             data: [
-                `${user.first_name} ${user.last_name}`,
+                `${user.firstName} ${user.lastName}`,
                 "Jackson Ray",
                 "Confirmed",
                 "12-14-2021 09:04 am",
