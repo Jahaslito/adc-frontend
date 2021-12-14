@@ -64,7 +64,7 @@ const Login = () => {
                                 placeholder="Password"
                                 value={password}
                                 onChange={(event) =>
-                                    setEmail(event.target.value)
+                                    setPassword(event.target.value)
                                 }
                                 required
                             />
