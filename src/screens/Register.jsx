@@ -17,19 +17,18 @@ const Register = () => {
     //spinner
     const [spinnerHidden, setSpinnerHidden] = useState(true);
     //inputs
-    const [firstName, setFirstName] = useState("Tony");
-    const [lastName, setLastName] = useState("Mogoa");
-    const [email, setEmail] = useState(
-        `tony.mogoa${Math.floor(Math.random() * 1000)}@strathmore.edu`
-    );
-    const [phone, setPhone] = useState("0708502805");
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
+    const [email, setEmail] = useState("");
+    const [phone, setPhone] = useState("");
     const [gender, setGender] = useState("");
-    const [password, setPassword] = useState("password");
-    const [confmPassword, setConfmPassword] = useState("password");
+    const [password, setPassword] = useState("");
+    const [confmPassword, setConfmPassword] = useState("");
     const [valdErr, setValdErr] = useState("");
-    const [addresss, setAddresss] = useState("Ole Sangale");
-    const [town, setTown] = useState("Siwaka");
-    const [dateOfBirth, setDateOfBirth] = useState("11/12/2020");
+    const [addresss, setAddresss] = useState("");
+    const [town, setTown] = useState("");
+    const [dateOfBirth, setDateOfBirth] = useState("");
+    const [errors, setErrors] = useState([]);
 
     return (
         <>
@@ -56,6 +55,7 @@ const Register = () => {
                                     setFirstName(event.target.value)
                                 }
                                 required
+                                validate={errors?.first_name?.[0]}
                             />
                         </div>
                         <div className="mb-6">
@@ -68,6 +68,7 @@ const Register = () => {
                                     setLastName(event.target.value)
                                 }
                                 required
+                                validate={errors?.last_name?.[0]}
                             />
                         </div>
                         <div className="mb-6">
@@ -80,6 +81,7 @@ const Register = () => {
                                     setDateOfBirth(event.target.value)
                                 }
                                 required
+                                validate={errors?.date_of_birth?.[0]}
                             />
                         </div>
                         <div className="mb-6">
@@ -92,6 +94,7 @@ const Register = () => {
                                     setEmail(event.target.value)
                                 }
                                 required
+                                validate={errors?.email?.[0]}
                             />
                         </div>
                         <div className="mb-6">
@@ -104,6 +107,7 @@ const Register = () => {
                                     setPhone(event.target.value)
                                 }
                                 required
+                                validate={errors?.phone_number?.[0]}
                             />
                         </div>
                         <div className="mb-6">
@@ -116,6 +120,7 @@ const Register = () => {
                                     setAddresss(event.target.value)
                                 }
                                 required
+                                validate={errors?.address?.[0]}
                             />
                         </div>
                         <div className="mb-6">
@@ -128,6 +133,7 @@ const Register = () => {
                                     setTown(event.target.value)
                                 }
                                 required
+                                validate={errors?.town?.[0]}
                             />
                         </div>
                         <div className="mb-6">
@@ -245,7 +251,10 @@ const Register = () => {
                 });
                 navigate("/", { replace: true });
             })
-            .catch((err) => console.log(err.response.data))
+            .catch((err) => {
+                console.log(err.response.data);
+                setErrors(err.response.data.errors);
+            })
             .finally(() => {
                 setSpinnerHidden(true);
             });
